@@ -1,0 +1,54 @@
+<div class="login-page">
+  <div class="container login-container">
+    <div class="row w-100 align-items-center justify-content-center">
+
+      <!-- Illustration Column -->
+      <div class="col-md-6 d-none d-md-block">
+      <img src="img/login-illustration.jpg" class="img-fluid illustration-img" />
+      </div>
+
+      <!-- Login Card Column -->
+      <div class="col-md-6">
+        <div class="login-card">
+          <img src="img/brands.png" alt="Logo" class="login-logo" />
+          <h2 class="welcome-text">Welcome</h2>
+
+        <form [formGroup]="signForm" (ngSubmit)="signin()">
+            <div class="form-group text-start">
+              <label for="emailInput" class="form-label">Email</label>
+              <input
+                id="emailInput"
+                type="email"
+                placeholder="Email"
+                formControlName="userName"
+                class="form-control custom-input"
+                required />
+            </div>
+
+            <div class="form-group text-start position-relative">
+              <label for="passwordInput" class="form-label">Password</label>
+              <input
+                id="passwordInput"
+                [type]="showPassword ? 'text' : 'password'"
+                placeholder="Password"
+                formControlName="password"
+                class="form-control custom-input pr-5"
+                required />
+              <i
+                class="fa align fa-eye"
+                [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                (click)="togglePasswordVisibility()"></i>
+            </div>
+
+            <button type="submit" class="btn custom-button">Log In</button>
+
+            <div class="forgot-password-container">
+              <a routerLink="/forgot-password" class="forgot-password">Forgot password?</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

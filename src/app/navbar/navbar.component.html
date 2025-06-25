@@ -1,0 +1,50 @@
+<nav class="navbar custom-navbar shadow-sm navbar-expand">
+<a class="navbar-brand d-flex align-items-center" href="#" style="height: 64px;">
+  <img src="img/brands.png" alt="HrXpert Logo" class="hrxpert-logo mb-1" />
+</a>
+
+
+
+ <!-- This goes inside your navbar -->
+<div class="sidebar-toggle-wrapper">
+  <button class="btn sidebar-toggle-btn" (click)="onButtonClick()">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+
+  <form class="d-none d-md-inline-block ms-auto me-3 my-2 my-md-0">
+    <div class="input-group custom-search-group">
+      <input
+        class="form-control custom-search-input"
+        type="text"
+        placeholder="Search..."
+        aria-label="Search"
+        aria-describedby="btnNavbarSearch"
+      />
+      <button class="btn custom-search-button" id="btnNavbarSearch" type="button">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </form>
+
+  <ul class="navbar-nav me-3 me-lg-4">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+       <i class="fas fa-user-circle fa-lg text-secondary rounded-circle p-1 bg-light"></i>
+
+
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Activity Log</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        @if (!checkLogin()) {
+          <li><a class="dropdown-item" href="#" (click)="onLogin()">Login</a></li>
+        } @else {
+          <li><a class="dropdown-item" href="#" (click)="onLogout()">Logout</a></li>
+        }
+      </ul>
+    </li>
+  </ul>
+</nav>

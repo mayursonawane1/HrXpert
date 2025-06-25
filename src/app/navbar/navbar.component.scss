@@ -1,0 +1,113 @@
+.custom-navbar {
+  background-color: #f7f7f9;
+  padding: 0.75rem 1.25rem;        // ⬆️ More vertical room
+  min-height: 70px;                // ⬆️ Allows logo to breathe
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+
+
+  .navbar-brand {
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-link {
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  .custom-search-group {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .custom-search-input {
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem 0 0 2rem;
+    outline: none;
+    background-color: transparent;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .custom-search-button {
+    border-radius: 0 2rem 2rem 0;
+    background-color: #FF725D;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+
+    i {
+      margin: 0;
+    }
+
+    &:hover {
+      background-color: darken(#FF725D, 5%);
+    }
+  }
+
+  .nav-link {
+    color: #333;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+
+  .dropdown-menu {
+    font-size: 0.9rem;
+  }
+}
+
+.navbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 0 3px rgba(255, 114, 93, 0.4);
+    cursor: pointer;
+  }
+}
+
+.sidebar-toggle-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 50px; // Adjust this as needed
+
+  .sidebar-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #333;
+    padding: 0.5rem;
+    margin-left: 34px;
+
+    &:hover {
+      color: #FF725D;
+    }
+  }
+}
+
+// ✅ Logo Style (Apply globally or scoped under .custom-navbar if needed)
+.hrxpert-logo {
+  transform: scale(1.4);      // Boost size
+  transform-origin: left;
+  height: 60px !important;    // Base height
+}
+
+
+
