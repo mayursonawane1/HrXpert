@@ -1,14 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+
 @Component({
-  selector: 'dashboard-ng19-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   signForm: FormGroup;
@@ -18,7 +17,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {
     this.signForm = this.fb.group({
       userName: ['', [Validators.required, Validators.email]],
@@ -30,19 +29,29 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
 
- signin(): void {
-  if (this.signForm.invalid) return;
+  signin(): void {
+    if (this.signForm.invalid) return;
 
-  this.authService.login(this.signForm.value).subscribe({
-    next: (res) => {
-      localStorage.setItem('authToken', res.token); 
-      alert('Login successful');
-      this.router.navigate(['/dashboard']);
-    },
-    error: () => {
-      alert('Invalid credentials');
-    },
-  });
-}
+    this.authService.login(this.signForm.value).subscribe({
+      next: (res: any) => {
+        localStorage.setItem('authToken', res.user.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
 
+        this.messageService.add({
+          severity: 'success', 
+          summary: 'Login Successful', 
+          detail: 'Welcome to the Dashboard!'
+        });
+
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error', 
+          summary: 'Login Failed', 
+          detail: 'Invalid credentials, please try again.'
+        });
+      },
+    });
+  }
 }

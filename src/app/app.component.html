@@ -1,13 +1,1 @@
-<ng-container *ngIf="!isLoginRoute(); else loginLayout">
-  <dashboard-ng19-navbar class="top-bar" (sidebarToggle)="onSidebarToggle()"></dashboard-ng19-navbar>
-  <dashboard-ng19-sidebar class="top-bar__side-bar" [class.open]="isSidebarOpen"></dashboard-ng19-sidebar>
-
-  <div class="top-bar__content-section">
-    <router-outlet></router-outlet>
-  </div>
-</ng-container>
-
-<ng-template #loginLayout>
-  <!-- Only render login route here -->
-  <router-outlet></router-outlet>
-</ng-template>
+<router-outlet></router-outlet>
