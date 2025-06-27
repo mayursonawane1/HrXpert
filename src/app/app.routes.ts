@@ -3,7 +3,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TableComponent } from './table/table.component';
 import { ChartsComponent } from './charts/charts.component';
 import { HelloComponent } from './hello/hello.component';
-import { LoginComponent } from './login/login.component'; // 👈
+import { LoginComponent } from './login/login.component'; 
 
 export const routes: Routes = [
   {
