@@ -1,0 +1,122 @@
+/* Hover effect on menu items */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  color: #495057;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #ffe0d8; // light hover color
+    color: #1f2937;
+  }
+}
+
+/* Circular badge */
+.message-badge {
+  background-color: #ff5035;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: auto;
+}
+.avatar-small {
+  width: 2rem;
+  height: 2rem;
+}
+.nav-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-circle:hover {
+  background-color: rgba(255, 80, 53, 0.1); /* Soft red hover */
+}
+
+.nav-circle i {
+  font-size: 1.1rem;
+  color: #ff5035;
+}
+
+.avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* global styles.css or component */
+header {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+/* styles.css */
+.fixed-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1002;
+  height: 4.5rem;
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.main-content {
+  padding-top: 4rem !important;
+}
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* adjust opacity here */
+  z-index: 1001; /* BELOW sidebar (usually 1002+) but ABOVE navbar/content */
+  transition: background-color 0.3s ease;
+  pointer-events: auto;
+}
+.navbar-logo {
+  height: 100px;              /* Adjust height to make logo readable */
+  max-height: 200px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +17,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    
   ) {
     this.signForm = this.fb.group({
       userName: ['', [Validators.required, Validators.email]],

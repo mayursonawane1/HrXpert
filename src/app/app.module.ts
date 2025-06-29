@@ -10,15 +10,33 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptor } from './core/auth.interceptor';
+import { Component, ViewChild } from '@angular/core';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
+import { StyleClassModule } from 'primeng/styleclass';
+import { Sidebar } from 'primeng/sidebar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     ToastModule,
+    SidebarModule,
+    ButtonModule, 
+    RippleModule, 
+    AvatarModule, 
+    StyleClassModule,
+    BrowserAnimationsModule,
+    SidebarModule,  
+    ButtonModule 
+
   ],
   providers: [
     provideHttpClient(),  // Provides HttpClient support
@@ -27,4 +45,4 @@ import { AuthInterceptor } from './core/auth.interceptor';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

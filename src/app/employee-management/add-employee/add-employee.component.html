@@ -1,0 +1,166 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4 px-3 flex-wrap">
+    <!-- Left: Page Title -->
+    <div class="d-flex align-items-center gap-2">
+      <i class="fa-solid fa-plus me-2" style="font-size: 1.5rem;"></i>
+      <h2 class="fw-bold mb-0">Add Employee</h2>
+    </div>
+
+    <!-- Right: Custom Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="custom-breadcrumb d-flex align-items-center mb-0">
+        <li>
+          <a routerLink="/" class="breadcrumb-link d-flex align-items-center">
+            <i class="pi pi-home me-1"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="breadcrumb-separator mx-2">&gt;</li>
+        <li class="breadcrumb-current active-breadcrumb">Add Employee</li>
+      </ol>
+    </nav>
+
+  </div>
+  <div class="card shadow-sm border-0 rounded">
+    <div class="card-body p-4">
+      <form>
+        <div class="row g-3">
+          <!-- First Name -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="Enter First Name" />
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">Last Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" placeholder="Enter Last Name" />
+          </div>
+
+          <!-- Email -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" placeholder="Enter Email" />
+          </div>
+
+          <!-- Phone Number -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
+            <input type="tel" class="form-control" placeholder="Enter Phone Number" />
+          </div>
+
+          <!-- Password with toggle -->
+          <div class="col-md-6 col-lg-4 position-relative">
+            <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+            <div class="position-relative">
+              <input [type]="showPassword ? 'text' : 'password'" class="form-control pe-5" placeholder="Enter Password"
+                [(ngModel)]="employee.password" name="password" />
+              <i class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'" (click)="togglePasswordVisibility()"
+                style="
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #888;
+      " (mouseenter)="hoverEye = true" (mouseleave)="hoverEye = false"
+                [style.color]="hoverEye ? '#495057' : '#888'"></i>
+            </div>
+          </div>
+
+
+
+          <!-- Employee Type -->
+          <!-- Employee Type -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">Employee Type <span class="text-danger">*</span></label>
+            <p-dropdown [options]="employeeTypes" [(ngModel)]="selectedEmployeeType" optionLabel="name" [filter]="true"
+              placeholder="Select Employee Type" appendTo="body">
+              <ng-template let-type pTemplate="item">
+                <div class="d-flex align-items-center">
+                  <i class="pi pi-users me-2"></i>
+                  <span class="dropdown-label-text">{{ type.name }}</span>
+                </div>
+              </ng-template>
+
+            </p-dropdown>
+          </div>
+
+
+
+          <!-- Work Location -->
+          <!-- Work Location -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">Work Location <span class="text-danger">*</span></label>
+            <p-dropdown [options]="workLocations" [(ngModel)]="selectedWorkLocation" optionLabel="name" [filter]="true"
+              filterBy="name" placeholder="Select Work Location" [style]="{ width: '100%' }">
+
+              <!-- Custom selected item -->
+              <ng-template pTemplate="selectedItem" let-selectedOption>
+                <div class="d-flex align-items-center gap-2">
+                  <i class="pi pi-map-marker"></i>
+                  <div>{{ selectedOption?.name }}</div>
+                </div>
+              </ng-template>
+
+              <!-- Custom dropdown item -->
+              <ng-template let-location pTemplate="item">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="pi pi-map-marker"></i>
+                  <div>{{ location.name }}</div>
+                </div>
+              </ng-template>
+
+            </p-dropdown>
+          </div>
+          <!-- Employee Status -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">Employee Status <span class="text-danger">*</span></label>
+            <p-dropdown [options]="employeeStatuses" [(ngModel)]="selectedEmployeeStatus" optionLabel="label"
+              [filter]="true" filterBy="label" placeholder="Select Status" [style]="{ width: '100%' }"
+              name="employeeStatus">
+
+              <!-- Selected item -->
+              <ng-template pTemplate="selectedItem" let-status>
+                <div class="d-flex align-items-center gap-2">
+                  <i class="pi pi-check-circle" *ngIf="status?.value === 'active'"></i>
+                  <i class="pi pi-times-circle" *ngIf="status?.value === 'inactive'"></i>
+                  <span>{{ status?.label }}</span>
+                </div>
+              </ng-template>
+
+              <!-- List items -->
+              <ng-template let-status pTemplate="item">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="pi pi-check-circle" *ngIf="status.value === 'active'"></i>
+                  <i class="pi pi-times-circle" *ngIf="status.value === 'inactive'"></i>
+                  <span>{{ status.label }}</span>
+                </div>
+              </ng-template>
+
+            </p-dropdown>
+          </div>
+          <!-- Date of Joining -->
+          <div class="col-md-6 col-lg-4">
+            <label class="form-label fw-semibold">Date of Joining <span class="text-danger">*</span></label>
+            <p-calendar [(ngModel)]="employee.dateOfJoining" [showIcon]="true" [iconDisplay]="'input'"
+              inputId="dateOfJoining" dateFormat="dd/mm/yy" [style]="{ width: '100%' }" name="dateOfJoining"
+              placeholder="Select Date">
+            </p-calendar>
+          </div>
+
+        </div>
+
+        <!-- Action Buttons -->
+        <!-- Centered Action Buttons -->
+        <div class="mt-4 d-flex justify-content-center gap-3">
+          <button class="save btn px-4" type="submit">
+            <i class="pi pi-save me-1"></i> Save
+          </button>
+          <button class="btn btn-secondary px-4" type="button">Cancel</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
