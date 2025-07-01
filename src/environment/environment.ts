@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://hrxpert-cyan.vercel.app'
+  apiBaseUrl: 'https://hr-xpert-service.vercel.app'
 };

@@ -243,3 +243,12 @@ select.form-select {
   padding: 0.3rem 0.75rem;
   border-radius: 0.5rem;
 }
+.img-thumbnail {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  object-fit: cover;
+}
+/* Smaller icon and cleaner appearance */
+button.btn-sm i.pi-trash {
+  font-size: 0.85rem;
+}

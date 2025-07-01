@@ -45,6 +45,35 @@ html, body {
   width: 2rem;
   height: 2rem;
 }
+.avatar-wrapper {
+  position: relative;
+}
+
+.avatar-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background-color: #28a745;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  z-index: 1;
+  animation: blink 1.2s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2);
+  }
+}
+
+
 .nav-circle {
   width: 2.5rem;
   height: 2.5rem;
@@ -119,4 +148,8 @@ header {
   align-items: center;
   justify-content: center;
   border: none;
+}
+::ng-deep .p-sidebar {
+ font-family: 'Inter', sans-serif;
+
 }

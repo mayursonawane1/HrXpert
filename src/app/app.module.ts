@@ -19,9 +19,12 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { Sidebar } from 'primeng/sidebar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
+import { DialogModule } from 'primeng/dialog';
+import { FormsModule } from '@angular/forms';
+import { AddOrganizationDialogComponent } from './organization/add-organization-dialog/add-organization-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, AddOrganizationDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,7 +38,9 @@ import { LayoutComponent } from './layout/layout.component';
     StyleClassModule,
     BrowserAnimationsModule,
     SidebarModule,  
-    ButtonModule 
+    ButtonModule,
+    DialogModule,
+    FormsModule
 
   ],
   providers: [

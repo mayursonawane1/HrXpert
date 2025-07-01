@@ -1,0 +1,50 @@
+<p-dialog header="Add Organization"
+          [(visible)]="visible"
+          [modal]="true"
+          [style]="{ width: '600px' }"
+          [breakpoints]="{ '960px': '95vw', '640px': '100vw' }"
+          [dismissableMask]="true"
+          [resizable]="false"
+          contentStyleClass="add-employee-card compact-form"
+          (onHide)="onDialogClose()">
+
+  <form>
+    <div class="row g-3">
+      <!-- Name -->
+      <div class="col-12 md:col-6">
+        <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Organization Name"
+               [(ngModel)]="organization.name" name="orgName" />
+      </div>
+
+      <!-- Email -->
+      <div class="col-12 md:col-6">
+        <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+        <input type="email" class="form-control" placeholder="info@techcorp.com"
+               [(ngModel)]="organization.email" name="orgEmail" />
+      </div>
+
+      <!-- Phone Number -->
+      <div class="col-12 md:col-6">
+        <label class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
+        <input type="tel" class="form-control" placeholder="Enter Phone Number"
+               [(ngModel)]="organization.phoneNo" name="orgPhone" />
+      </div>
+
+      <!-- City -->
+      <div class="col-12 md:col-6">
+        <label class="form-label fw-semibold">City <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter City"
+               [(ngModel)]="organization.city" name="orgCity" />
+      </div>
+    </div>
+
+    <!-- Save Button -->
+    <div class="mt-4 d-flex justify-content-center">
+      <button type="button" class="btn save px-5" (click)="save()">
+  <i class="pi pi-save me-2"></i>Save
+</button>
+
+    </div>
+  </form>
+</p-dialog>

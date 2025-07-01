@@ -20,10 +20,10 @@ const routes: Routes = [
 
       // ✅ Lazy load Employee Management inside layout
       {
-        path: 'employee-management',
+        path: 'hr',
         loadChildren: () =>
-          import('./employee-management/employee-management.module')
-            .then(m => m.EmployeeManagementModule)
+          import('./hr/hr.module')
+            .then(m => m.HrModule)
       },
 
       // You can add more protected children here...

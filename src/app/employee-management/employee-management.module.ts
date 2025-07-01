@@ -10,6 +10,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { Tooltip, TooltipModule } from 'primeng/tooltip';
 @NgModule({
   declarations: [
     AddEmployeeComponent
@@ -24,7 +25,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     FloatLabelModule,
     DropdownModule,
     CalendarModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    TooltipModule
   ]
 })
 export class EmployeeManagementModule { }

@@ -1,0 +1,9 @@
+<!-- Button to open dialog -->
+<div class="container mt-4 d-flex justify-content-end">
+  <button class="btn add-org-btn d-flex align-items-center gap-2" (click)="showOrgDialog()">
+    <i class="pi pi-plus"></i> Add Organization
+  </button>
+</div>
+
+<!-- Include the dialog component -->
+<app-add-organization-dialog [(visible)]="orgDialogVisible"></app-add-organization-dialog>

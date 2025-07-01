@@ -15,6 +15,7 @@ export class AddEmployeeComponent implements OnInit {
   breadcrumbItems: MenuItem[] = [];
    items: MenuItem[] = [];
   home!: MenuItem;
+  imagePreview: string | ArrayBuffer | null = null;
   employeeStatuses = [
   { label: 'Active', value: 'active' },
   { label: 'Inactive', value: 'inactive' }
@@ -57,4 +58,22 @@ export class AddEmployeeComponent implements OnInit {
     this.employee.workLocation = this.selectedWorkLocation?.name || '';
 
   }
+  onImageSelected(event: any): void {
+  const file: File = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+removeImage(): void {
+  this.imagePreview = null;
+  const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+  if (fileInput) {
+    fileInput.value = '';
+  }
+}
+
 }

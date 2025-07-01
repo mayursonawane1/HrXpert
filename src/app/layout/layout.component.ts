@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
 })
 export class LayoutComponent {
  sidebarVisible: boolean = true;
+ isEmployeeOpen = false;
+isCoreOpen = true;
+isApplicationOpen = false;
+
  sectionState = {
   core: true,
   application: false,

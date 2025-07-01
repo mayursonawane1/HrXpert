@@ -148,6 +148,23 @@
               placeholder="Select Date">
             </p-calendar>
           </div>
+          
+          <!-- Upload Photo -->
+<!-- Upload Photo -->
+<div class="col-md-6 col-lg-4">
+  <label class="form-label fw-semibold">Upload Photo</label>
+  <input type="file" class="form-control" accept="image/*" (change)="onImageSelected($event)" />
+
+  <!-- Preview with Remove Button -->
+  <div *ngIf="imagePreview" class="position-relative mt-2 d-inline-block">
+    <img [src]="imagePreview" alt="Photo Preview" class="img-thumbnail" style="max-width: 150px;" />
+    <button type="button" class="btn btn-sm btn-light text-danger position-absolute top-0 end-0 m-1 p-1 border-0 shadow-sm"
+      (click)="removeImage()" pTooltip="Remove photo">
+      <i class="pi pi-trash"></i>
+    </button>
+  </div>
+</div>
+
 
         </div>
 

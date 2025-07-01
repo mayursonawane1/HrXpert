@@ -53,4 +53,11 @@ export class AuthService {
     }
     return {}; // Return empty object if not in the browser
   }
+  getToken(): string | null {
+  if (isPlatformBrowser(this.platformId)) {
+    return localStorage.getItem('authToken');
+  }
+  return null;
+}
+
 }

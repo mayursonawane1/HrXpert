@@ -7,23 +7,11 @@ import { Sidebar } from 'primeng/sidebar';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
- sidebarVisible: boolean = false;
+ orgDialogVisible: boolean = false;
 
-  activeSection: string | null = null;
-  activeSubmenu: string | null = null;
+showOrgDialog() {
+  this.orgDialogVisible = true;
+}
 
-  toggleSection(section: string): void {
-    this.activeSection = this.activeSection === section ? null : section;
-    // Reset submenu when section changes
-    this.activeSubmenu = null;
-  }
-
-  toggleSubmenu(menu: string): void {
-    this.activeSubmenu = this.activeSubmenu === menu ? null : menu;
-  }
-
-  closeCallback(event: Event): void {
-    this.sidebarVisible = false;
-  }
 }
 
