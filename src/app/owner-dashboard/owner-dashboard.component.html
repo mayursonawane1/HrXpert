@@ -1,0 +1,75 @@
+<div class="container mt-4">
+
+  <!-- Add button -->
+  <div class="d-flex justify-content-end mb-2">
+    <button
+      class="btn add-org-btn d-flex align-items-center gap-2"
+      (click)="showOrgDialog()"
+    >
+      <i class="pi pi-plus"></i> Add Organization
+    </button>
+  </div>
+
+  <!-- PrimeNG table -->
+  <p-table
+    #dt
+    [value]="organizations"
+    [paginator]="true"
+    [rows]="5"
+    sortMode="multiple"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="phoneNo">Phone <p-sortIcon field="phoneNo"></p-sortIcon></th>
+        <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon></th>
+        <th pSortableColumn="createdAt">Created <p-sortIcon field="createdAt"></p-sortIcon></th>
+        <th pSortableColumn="updatedAt">Updated <p-sortIcon field="updatedAt"></p-sortIcon></th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-org>
+      <tr>
+        <td>{{ org.name }}</td>
+        <td>{{ org.email }}</td>
+        <td>{{ org.phoneNo }}</td>
+        <td>{{ org.city }}</td>
+        <td>{{ org.createdAt | date: 'medium' }}</td>
+        <td>{{ org.updatedAt | date: 'medium' }}</td>
+        <td>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text"
+            (click)="editOrganization(org)"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="deleteOrganization(org._id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7">No organizations found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Add/Edit Dialog -->
+  <app-add-organization-dialog
+    [(visible)]="orgDialogVisible"
+    [organization]="selectedOrg"
+    (visibleChange)="onDialogHide()"
+    (saveComplete)="onDialogSave()"
+  >
+  </app-add-organization-dialog>
+</div>

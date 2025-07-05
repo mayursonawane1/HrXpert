@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component'; // 👈 new
 import { authGuard } from './core/auth.guard';
+import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.component';
 
 const routes: Routes = [
   // Public login page
@@ -15,7 +16,7 @@ const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: ['owner'] },
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: OwnerDashboardComponent },
       {
         path: 'owner',
         loadChildren: () => import('./owner/owner.module').then((m) => m.OwnerModule),

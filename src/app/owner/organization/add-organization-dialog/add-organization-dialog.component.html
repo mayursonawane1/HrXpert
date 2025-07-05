@@ -1,44 +1,62 @@
-<p-dialog header="Add Organization" [(visible)]="visible" [modal]="true" [style]="{ width: '600px' }"
+<p-dialog [header]="title" [(visible)]="visible" [modal]="true" [style]="{ width: '600px' }"
   [breakpoints]="{ '960px': '95vw', '640px': '100vw' }" [dismissableMask]="true" [resizable]="false"
   contentStyleClass="add-employee-card compact-form" (onHide)="onDialogClose()">
-
-  <form>
+  <form [formGroup]="orgForm" novalidate>
     <div class="row g-3">
       <!-- Name -->
       <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter Organization Name" [(ngModel)]="organization.name"
-          name="orgName" />
+        <label class="form-label fw-semibold">
+          Name <span class="text-danger">*</span>
+        </label>
+        <input pInputText type="text" class="form-control" placeholder="Enter Organization Name"
+          formControlName="name" />
+        <small *ngIf="orgForm.get('name')?.touched && orgForm.get('name')?.hasError('required')" class="p-error">
+          Name is required.
+        </small>
       </div>
 
       <!-- Email -->
       <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
-        <input type="email" class="form-control" placeholder="info@techcorp.com" [(ngModel)]="organization.email"
-          name="orgEmail" />
+        <label class="form-label fw-semibold">
+          Email <span class="text-danger">*</span>
+        </label>
+        <input pInputText type="email" class="form-control" placeholder="info@techcorp.com" formControlName="email" />
+        <small *ngIf="orgForm.get('email')?.touched && orgForm.get('email')?.hasError('required')" class="p-error">
+          Email is required.
+        </small>
+        <small *ngIf="orgForm.get('email')?.touched && orgForm.get('email')?.hasError('email')" class="p-error">
+          Invalid email format.
+        </small>
       </div>
 
-      <!-- Phone Number -->
+      <!-- Phone -->
       <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
-        <input type="tel" class="form-control" placeholder="Enter Phone Number" [(ngModel)]="organization.phoneNo"
-          name="orgPhone" />
+        <label class="form-label fw-semibold">
+          Phone Number <span class="text-danger">*</span>
+        </label>
+        <input pInputText type="tel" class="form-control" placeholder="Enter Phone Number" formControlName="phoneNo" />
+        <small *ngIf="orgForm.get('phoneNo')?.touched && orgForm.get('phoneNo')?.hasError('required')" class="p-error">
+          Phone number is required.
+        </small>
       </div>
 
       <!-- City -->
       <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">City <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter City" [(ngModel)]="organization.city"
-          name="orgCity" />
+        <label class="form-label fw-semibold">
+          City <span class="text-danger">*</span>
+        </label>
+        <input pInputText type="text" class="form-control" placeholder="Enter City" formControlName="city" />
+        <small *ngIf="orgForm.get('city')?.touched && orgForm.get('city')?.hasError('required')" class="p-error">
+          City is required.
+        </small>
       </div>
     </div>
 
-    <!-- Save Button -->
     <div class="mt-4 d-flex justify-content-center">
-      <button type="button" class="btn save px-5" (click)="save()">
-        <i class="pi pi-save me-2"></i>Save
+      <button type="button" class="btn save px-5" [disabled]="orgForm.invalid" (click)="save()">
+        <i class="pi pi-save me-2"></i>
+        Save
       </button>
-
     </div>
   </form>
 </p-dialog>
