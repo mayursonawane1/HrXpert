@@ -12,12 +12,7 @@ export class OrganizationService {
 
   constructor(private http: HttpClient) {}
 
-  createOrganization(data: Organization, token: string) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.post(`${this.baseUrl}/org/createOrg`, data, { headers });
+  createOrganization(data: Organization) {
+    return this.http.post(`${this.baseUrl}/org/createOrg`, data);
   }
 }

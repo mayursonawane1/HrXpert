@@ -21,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
-import { AddOrganizationDialogComponent } from './organization/add-organization-dialog/add-organization-dialog.component';
+import { AddOrganizationDialogComponent } from './owner/organization/add-organization-dialog/add-organization-dialog.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, AddOrganizationDialogComponent],
@@ -40,11 +40,12 @@ import { AddOrganizationDialogComponent } from './organization/add-organization-
     SidebarModule,  
     ButtonModule,
     DialogModule,
-    FormsModule
+    FormsModule,
+    
 
   ],
   providers: [
-    provideHttpClient(),  // Provides HttpClient support
+    provideHttpClient(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     MessageService,
   ],
