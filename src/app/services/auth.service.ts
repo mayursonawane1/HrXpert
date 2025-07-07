@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { isPlatformBrowser } from '@angular/common'; // Import `isPlatformBrowser`
+import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../environment/environment';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: any // Inject PLATFORM_ID to detect the platform
+    @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
   login(credentials: { userName: string; password: string }) {
@@ -19,7 +19,10 @@ export class AuthService {
       email: credentials.userName,
       password: credentials.password,
     };
-    return this.http.post<{ message: string; user: any }>(`${this.api}/auth/login`, payload);
+    return this.http.post<{ message: string; user: any }>(
+      `${this.api}/auth/login`,
+      payload
+    );
   }
 
   isAuthenticated(): boolean {
@@ -54,10 +57,9 @@ export class AuthService {
     return {}; // Return empty object if not in the browser
   }
   getToken(): string | null {
-  if (isPlatformBrowser(this.platformId)) {
-    return localStorage.getItem('authToken');
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('authToken');
+    }
+    return null;
   }
-  return null;
-}
-
 }

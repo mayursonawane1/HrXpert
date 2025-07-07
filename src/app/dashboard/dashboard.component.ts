@@ -1,17 +1,17 @@
-
-import { Component, ViewChild } from '@angular/core';
-import { Sidebar } from 'primeng/sidebar';
+import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
- orgDialogVisible: boolean = false;
+export class DashboardComponent implements OnInit {
+  orgDialogVisible: boolean = false;
 
-showOrgDialog() {
-  this.orgDialogVisible = true;
+  ngOnInit() {
+    console.log('Dashboard initialized');
+  }
+
+  showOrgDialog() {
+    this.orgDialogVisible = true;
+  }
 }
-
-}
-

@@ -3,17 +3,17 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
+  styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
- sidebarVisible: boolean = true;
- isEmployeeOpen = false;
-isCoreOpen = true;
-isApplicationOpen = false;
+  sidebarVisible: boolean = true;
+  isEmployeeOpen = false;
+  isCoreOpen = true;
+  isApplicationOpen = false;
 
- sectionState = {
-  core: true,
-  application: false,
-  reports: false
-};
+  sectionState = {
+    core: true,
+    application: false,
+    reports: false,
+  };
 }
