@@ -27,19 +27,6 @@
             </small>
         </div>
 
-        <!-- Phone -->
-        <div class="col-12 md:col-6">
-            <label class="form-label fw-semibold">
-                Phone Number <span class="text-danger">*</span>
-            </label>
-            <input pInputText type="tel" class="form-control" placeholder="Enter Phone Number"
-                formControlName="phoneNo" />
-            <small *ngIf="hrForm.get('phoneNo')?.touched && hrForm.get('phoneNo')?.hasError('required')"
-                class="p-error">
-                Phone number is required.
-            </small>
-        </div>
-
         <!-- City -->
         <div class="col-12 md:col-6">
             <label class="form-label fw-semibold">

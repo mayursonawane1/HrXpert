@@ -42,6 +42,8 @@
           <td>{{ org.createdAt | date: 'medium' }}</td>
           <td>{{ org.updatedAt | date: 'medium' }}</td>
           <td>
+            <button pButton type="button" icon="pi pi-user-plus" class="p-button-rounded p-button-text p-button-success"
+              (click)="addHr(org)"></button>
             <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
               (click)="editOrganization(org)"></button>
             <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"

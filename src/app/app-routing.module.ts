@@ -16,7 +16,7 @@ const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: ['owner'] },
     children: [
-      { path: 'dashboard', component: OwnerDashboardComponent },
+      { path: 'owner-dashboard', component: OwnerDashboardComponent },
       {
         path: 'owner',
         loadChildren: () => import('./owner/owner.module').then((m) => m.OwnerModule),

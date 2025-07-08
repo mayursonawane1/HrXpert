@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from '../../owner/organization/services/organization.service';
 import { OrganizationList } from '../../owner/organization/models/organization.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-owner-dashboard',
@@ -12,7 +13,10 @@ export class OwnerDashboardComponent implements OnInit {
   organizations: OrganizationList[] = [];
   selectedOrg: OrganizationList | null = null;
 
-  constructor(private organizationService: OrganizationService) {}
+  constructor(
+    private organizationService: OrganizationService,
+    private router: Router // Inject the Router service
+  ) {}
 
   ngOnInit() {
     this.getAllOrganizations();
@@ -30,25 +34,31 @@ export class OwnerDashboardComponent implements OnInit {
     this.orgDialogVisible = true;   // open dialog
   }
 
-  // pencil button
+  // Pencil button (edit organization)
   editOrganization(org: OrganizationList) {
     this.selectedOrg = org;
     this.orgDialogVisible = true;
   }
 
+  // Delete organization
   deleteOrganization(id: string) {
     this.organizationService.deleteOrganization(id).subscribe(() => {
       this.getAllOrganizations();
     });
   }
 
-  // dialog (both add & edit) emits this when it closes
+  // Dialog (both add & edit) emits this when it closes
   onDialogHide() {
     this.orgDialogVisible = false;
   }
 
-  // dialog emits this after a successful create/update
+  // Dialog emits this after a successful create/update
   onDialogSave() {
     this.getAllOrganizations();
+  }
+
+  // Navigate to 'owner/addHr' with _id
+  addHr(orgId: string) {
+    this.router.navigate([`/owner/addHr`, orgId]); // Routes to 'owner/addHr/_id'
   }
 }

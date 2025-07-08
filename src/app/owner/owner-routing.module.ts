@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./organization/organization.module').then((m) => m.OrganizationModule)
   },
   {
-    path:'addHr',
+    path:'addHr/:id',
     component: AddHrComponent
   }
 ];

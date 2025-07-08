@@ -44,7 +44,11 @@ export class LoginComponent {
           detail: 'Welcome to the Dashboard!'
         });
 
-        this.router.navigate(['/dashboard']);
+        if(res.user.role === 'owner') {
+          this.router.navigate(['/owner-dashboard']);
+        }else{
+          this.router.navigate(['/dashboard']);
+        }
       },
       error: () => {
         this.messageService.add({
