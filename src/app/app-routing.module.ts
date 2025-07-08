@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LayoutComponent } from './layout/layout.component'; // 👈 new
+import { LoginComponent } from './common/login/login.component';
+import { DashboardComponent } from './dashboards/dashboard/dashboard.component';
+import { LayoutComponent } from './common/layout/layout.component';
 import { authGuard } from './core/auth.guard';
-import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.component';
+import { OwnerDashboardComponent } from './dashboards/owner-dashboard/owner-dashboard.component';
 
 const routes: Routes = [
   // Public login page

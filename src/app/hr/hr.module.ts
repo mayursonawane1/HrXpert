@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HrRoutingModule } from './hr-routing.module'; 
 import { EmployeeManagementModule } from './employee-management/employee-management.module';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { EmployeeManagementModule } from './employee-management/employee-managem
   imports: [
     CommonModule,
     HrRoutingModule,
-    EmployeeManagementModule
+    EmployeeManagementModule,
+    CardModule
   ]
 })
 export class HrModule { }

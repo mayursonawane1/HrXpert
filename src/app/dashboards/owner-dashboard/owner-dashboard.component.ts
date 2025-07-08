@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganizationService } from '../owner/organization/services/organization.service';
-import { OrganizationList } from '../owner/organization/models/organization.model';
+import { OrganizationService } from '../../owner/organization/services/organization.service';
+import { OrganizationList } from '../../owner/organization/models/organization.model';
 
 @Component({
   selector: 'app-owner-dashboard',
