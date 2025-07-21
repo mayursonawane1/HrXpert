@@ -1,0 +1,151 @@
+::ng-deep .profile-overlay {
+  border-radius: 20px;
+  background: white;
+  color: #333;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  width: 350px; /* Adjusted width */
+  padding: 0 !important;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  margin-top: 5rem; /* Adjusted the margin to move the panel below the navbar */
+}
+
+::ng-deep .p-overlaypanel.p-overlaypanel-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.overlay-wrapper {
+  padding: 1.25rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px white;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.role {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.email {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.last-login {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.divider {
+  margin: 1.2rem 0;
+  border-top: 1px solid #eee;
+}
+
+/* Action group updated for side-by-side layout */
+.action-group {
+  display: flex;
+  flex-direction: row; /* Buttons side by side */
+  gap: 1rem; /* Space between buttons */
+  justify-content: center; /* Center the buttons */
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.action-btn {
+  font-size: 0.85rem;
+  padding: 0.6rem 0.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  width: auto; /* Let buttons size according to content */
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-btn:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  transform: translateY(-1px);
+}
+
+.action-btn.p-button-danger:hover {
+  background-color: #f44336 !important;
+  color: white;
+}
+
+/* Icon animation on hover */
+.action-btn i {
+  transition: transform 0.3s ease, color 0.3s ease; /* Adding transition for transform and color */
+}
+
+.action-btn:hover i {
+  transform: scale(1.1); /* Icon scales slightly */
+  color: #ff5035; /* Change icon color to match hover theme */
+}
+
+::ng-deep .p-overlaypanel:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 1.5rem;
+  border-style: solid;
+  border-width: 0 8px 8px 8px;
+  border-color: transparent transparent white transparent;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive tweak for smaller screens */
+@media (max-width: 600px) {
+  ::ng-deep .profile-overlay {
+    width: 95vw;
+  }
+
+  .action-group {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0.75rem; /* Add gap when stacking vertically */
+  }
+
+  .action-btn {
+    width: 100%; /* Ensure buttons take full width on small screens */
+  }
+}

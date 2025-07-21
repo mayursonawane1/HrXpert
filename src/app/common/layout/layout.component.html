@@ -26,11 +26,11 @@
       <button class="nav-circle" aria-label="Settings">
         <i class="pi pi-spin pi-cog"></i>
       </button>
-      <div class="nav-circle avatar-wrapper position-relative" aria-label="User">
+      <div class="nav-circle avatar-wrapper position-relative" (click)="profileOverlay.show($event)" aria-label="User">
         <img src="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar" />
         <span class="avatar-status"></span>
       </div>
-
+    <app-profile-overlay #profileOverlay></app-profile-overlay>
 
     </div>
   </header>
@@ -43,153 +43,100 @@
     <p-sidebar [(visible)]="sidebarVisible" [modal]="false" position="left" [baseZIndex]="1002" [showCloseIcon]="false"
       styleClass="w-18rem">
       <ng-template pTemplate="headless">
-        <div class="card flex justify-content-center">
-          <p-sidebar #sidebarRef [(visible)]="sidebarVisible">
-            <ng-template pTemplate="headless">
-              <div class="flex flex-column h-full">
-                <!-- Header -->
-                <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
-                  <span class="inline-flex align-items-center gap-2">
-                    <!-- Your logo SVG here if needed -->
-                     <img src="assets/img/HrXpert-tight.png" alt="Logo" class="navbar-logo" />
-                  </span>
-                  <button (click)="sidebarVisible = false"
-                    style="background: none; border: none; font-size: 2.2rem; cursor: pointer;">
-                    &times;
-                  </button>
+        <div class="flex flex-column h-full">
+          <!-- Sidebar Header -->
+          <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
+            <img src="assets/img/HrXpert-tight.png" alt="Logo" class="navbar-logo" />
+            <button (click)="sidebarVisible = false"
+              style="background: none; border: none; font-size: 2.2rem; cursor: pointer;">
+              &times;
+            </button>
+          </div>
+
+          <!-- Sidebar Body -->
+          <div class="overflow-y-auto">
+            <ul class="list-none p-3 m-0">
+              <!-- Loop through menu sections -->
+              <li *ngFor="let section of menuItems">
+                <!-- Section Header -->
+                <div pRipple (click)="toggleSection(section)"
+                  class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                  [ngClass]="{
+                'active-parent': section.expanded
+              }">
+                  <span class="font-medium">{{ section.label }}</span>
+                  <i class="pi" [ngClass]="{
+                  'pi-chevron-down': section.expanded,
+                  'pi-chevron-right': !section.expanded
+                }" style="transition: transform 0.3s ease-in-out;"></i>
                 </div>
 
-                <!-- Sidebar Body -->
-                <div class="overflow-y-auto">
-                  <ul class="list-none p-3 m-0">
-                    <li>
-                      <div pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown"
-                        leaveToClass="hidden" leaveActiveClass="slideup"
-                        class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple">
-                        <span class="font-medium">CORE</span>
-                        <i class="pi pi-chevron-down"></i>
-                      </div>
-                      <ul class="list-none p-0 m-0 overflow-hidden">
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple" [routerLink]="'/dashboard'">
-                            <i class="pi pi-home mr-2"></i>
-                            <span class="font-medium">Dashboard</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple">
-                            <i class="pi pi-bookmark mr-2"></i>
-                            <span class="font-medium">Bookmarks</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown"
-                            leaveToClass="hidden" leaveActiveClass="slideup"
-                            class="sidebar-link justify-between p-ripple">
-                            <div class="flex align-items-center">
-                              <i class="pi pi-chart-line mr-2"></i>
-                              <span class="font-medium">Employee Management</span>
-                            </div>
-                            <i class="pi pi-chevron-down ml-auto"></i>
-                          </a>
-                          <ul
-                            class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
-                            <li>
-                              <a pRipple class="sidebar-link p-ripple" [routerLink]="'hr/employee-management/add'">
-                                <i class="fa-solid fa-plus me-2"></i>
-                                <span class="font-medium">Add Employee</span>
-                              </a>
-                            </li>
-                            <li>
-                              <a pRipple class="sidebar-link p-ripple">
-                                <i class="pi pi-search mr-2"></i>
-                                <span class="font-medium">Search</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple">
-                            <i class="pi pi-users mr-2"></i>
-                            <span class="font-medium">Team</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a pRipple class="sidebar-link justify-between p-ripple">
-                            <div class="flex align-items-center">
-                              <i class="pi pi-comments mr-2"></i>
-                              <span class="font-medium">Messages</span>
-                            </div>
-                            <span class="message-badge">3</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple">
-                            <i class="pi pi-calendar mr-2"></i>
-                            <span class="font-medium">Calendar</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple">
-                            <i class="pi pi-cog mr-2"></i>
-                            <span class="font-medium">Settings</span>
+                <!-- Section Items -->
+                <ul class="list-none p-0 m-0 overflow-hidden"
+                  [@slideToggle]="section.expanded ? 'expanded' : 'collapsed'">
+                  <ng-container *ngFor="let item of section.children">
+                    <!-- Menu Item without Children -->
+                    <li *ngIf="!item.children">
+                      <a pRipple class="sidebar-link flex align-items-center p-ripple" [routerLink]="item.routerLink">
+                        <i [class]="item.icon + ' mr-2'"></i>
+                        <span class="font-medium flex-grow-1">
+                          {{ item.label }}
+                        </span>
+                        <span *ngIf="item.badge" class="message-badge ml-auto">
+                          {{ item.badge }}
+                        </span>
+                      </a>
+                    </li>
+
+                    <!-- Menu Item with Children -->
+                    <li *ngIf="item.children">
+                      <a pRipple (click)="toggleSubmenu(item)" class="sidebar-link flex align-items-center p-ripple"
+                        [ngClass]="{
+                      'active-parent': item.expanded
+                    }">
+                        <i [class]="item.icon + ' mr-2'"></i>
+                        <span class="font-medium flex-grow-1">
+                          {{ item.label }}
+                        </span>
+                        <i class="pi ml-auto" [ngClass]="{
+                        'pi-chevron-down': item.expanded,
+                        'pi-chevron-right': !item.expanded
+                      }" style="transition: transform 0.3s ease-in-out;"></i>
+                      </a>
+
+                      <!-- Submenu -->
+                      <ul class="list-none py-0 pl-3 pr-0 m-0 overflow-y-hidden"
+                        [@slideToggle]="item.expanded ? 'expanded' : 'collapsed'">
+                        <li *ngFor="let subItem of item.children">
+                          <a pRipple class="sidebar-link flex align-items-center p-ripple"
+                            [routerLink]="subItem.routerLink">
+                            <i [class]="subItem.icon + ' mr-2'"></i>
+                            <span class="font-medium">{{ subItem.label }}</span>
                           </a>
                         </li>
                       </ul>
                     </li>
-                  </ul>
+                  </ng-container>
+                </ul>
+              </li>
+            </ul>
+          </div>
 
-                  <ul class="list-none p-3 m-0">
-                    <li>
-                      <div pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown"
-                        leaveToClass="hidden" leaveActiveClass="slideup"
-                        class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple">
-                        <span class="font-medium">APPLICATION</span>
-                        <i class="pi pi-chevron-down"></i>
-                      </div>
-                      <ul class="list-none p-0 m-0 overflow-hidden">
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple">
-                            <i class="pi pi-folder mr-2"></i>
-                            <span class="font-medium">Projects</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple">
-                            <i class="pi pi-chart-bar mr-2"></i>
-                            <span class="font-medium">Performance</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a pRipple class="sidebar-link p-ripple">
-                            <i class="pi pi-cog mr-2"></i>
-                            <span class="font-medium">Settings</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-
-                <!-- Footer -->
-                <div class="mt-auto">
-                  <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
-                  <a pRipple class="sidebar-link gap-2 m-3 p-ripple">
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                      shape="circle" />
-                    <span class="font-bold">Amy Elsner</span>
-                  </a>
-                </div>
-              </div>
-            </ng-template>
-          </p-sidebar>
-
-          <!-- Sidebar Toggle Button -->
-          <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+          <!-- Sidebar Footer -->
+          <div class="mt-auto">
+            <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
+            <a pRipple class="sidebar-link gap-2 m-3 flex align-items-center p-ripple">
+              <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                shape="circle"></p-avatar>
+              <span class="font-bold">Amy Elsner</span>
+            </a>
+          </div>
         </div>
-
       </ng-template>
     </p-sidebar>
+
+
+
     <!-- Backdrop overlay -->
     <div *ngIf="sidebarVisible" class="sidebar-overlay" (click)="sidebarVisible = false">
     </div>

@@ -69,3 +69,19 @@ input.form-control {
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(255, 114, 93, 0.25);
 }
+/* Rounded corners for the card */
+.custom-card {
+  border-radius: 12px; /* smooth rounded edges */
+  overflow: hidden; /* ensures content respects the radius */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* optional subtle shadow */
+}
+/* Remove card body padding */
+.no-padding .p-card-body {
+  padding: 0 !important;
+}
+
+/* Optional: make the table corners align with the card */
+.no-inner-padding .p-datatable {
+  border-radius: 12px; /* match the card’s radius */
+  border: none; /* optional: remove inner borders if you want */
+}

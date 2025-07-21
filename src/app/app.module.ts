@@ -24,15 +24,18 @@ import { AddOrganizationDialogComponent } from './owner/organization/add-organiz
 import { OwnerDashboardComponent } from './dashboards/owner-dashboard/owner-dashboard.component';
 import { DropdownModule } from 'primeng/dropdown';              // ← import this
 import { CardModule } from 'primeng/card';
+import { ProfileOverlayComponent } from './common/profile-overlay/profile-overlay.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, AddOrganizationDialogComponent, OwnerDashboardComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, AddOrganizationDialogComponent, OwnerDashboardComponent, ProfileOverlayComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    OverlayPanelModule,
     ToastModule,
     SidebarModule,
     ButtonModule,

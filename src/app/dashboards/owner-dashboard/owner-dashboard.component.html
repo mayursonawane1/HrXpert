@@ -1,26 +1,16 @@
 <div class="container mt-4">
 
-  <!-- Add button -->
-  <div class="d-flex justify-content-end mb-2">
+  <!-- Add button above card -->
+  <div class="d-flex justify-content-end mb-3">
     <button class="btn add-org-btn d-flex align-items-center gap-2" (click)="showOrgDialog()">
       <i class="pi pi-plus"></i> Add Organization
     </button>
   </div>
 
   <!-- Card wrapping the table -->
-  <div class="card-body">
-    <ng-template pTemplate="header">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Organizations</h5>
-        <!-- Optional Add button inside card header -->
-        <button class="btn btn-sm btn-primary d-flex align-items-center gap-1" (click)="showOrgDialog()">
-          <i class="pi pi-plus"></i> Add
-        </button>
-      </div>
-    </ng-template>
-
+  <p-card styleClass="custom-card no-padding">
     <!-- PrimeNG table -->
-    <p-table #dt [value]="organizations" [paginator]="true" [rows]="5" sortMode="multiple">
+    <p-table #dt [value]="organizations" [paginator]="true" [rows]="5" sortMode="multiple" responsiveLayout="scroll">
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
@@ -42,24 +32,38 @@
           <td>{{ org.createdAt | date: 'medium' }}</td>
           <td>{{ org.updatedAt | date: 'medium' }}</td>
           <td>
-            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
-              (click)="editOrganization(org)"></button>
-            <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-              (click)="deleteOrganization(org._id)"></button>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text"
+              (click)="editOrganization(org)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger"
+              (click)="deleteOrganization(org._id)"
+            ></button>
           </td>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7">No organizations found.</td>
+          <td colspan="7" class="text-center">No organizations found.</td>
         </tr>
       </ng-template>
     </p-table>
-  </div>
+  </p-card>
 
   <!-- Add/Edit Dialog -->
-  <app-add-organization-dialog [(visible)]="orgDialogVisible" [organization]="selectedOrg"
-    (visibleChange)="onDialogHide()" (saveComplete)="onDialogSave()">
+  <app-add-organization-dialog
+    [(visible)]="orgDialogVisible"
+    [organization]="selectedOrg"
+    (visibleChange)="onDialogHide()"
+    (saveComplete)="onDialogSave()"
+  >
   </app-add-organization-dialog>
 </div>

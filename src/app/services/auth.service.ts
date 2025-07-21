@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../environment/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
@@ -34,18 +36,33 @@ export class AuthService {
     return false; // Return false if not in the browser
   }
 
-  getUserRole(): string | null {
-    if (isPlatformBrowser(this.platformId)) {
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      return user?.role ?? null; // Return the role of the logged-in user
-    }
-    return null; // Return null if not in the browser
+ getUserRole(): string | null {
+  if (isPlatformBrowser(this.platformId)) {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user?.role ?? null;
   }
+  return null;
+}
 
-  logout(): void {
+isOwner(): boolean {
+  return this.getUserRole() === 'owner';
+}
+
+isHR(): boolean {
+  return this.getUserRole() === 'hr';
+}
+
+isEmployee(): boolean {
+  return this.getUserRole() === 'employee';
+}
+
+ logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');
+
+      // Redirect to login or home
+      this.router.navigate(['/login']);
     }
   }
 

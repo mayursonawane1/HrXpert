@@ -1,0 +1,43 @@
+<p-overlayPanel
+  #op
+  appendTo="body"
+  [style]="{ 'margin-top': '6px' }"
+  styleClass="profile-overlay">
+  
+  <div class="overlay-wrapper">
+    
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <p-avatar
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+        shape="circle"
+        size="xlarge"
+        class="profile-avatar">
+      </p-avatar>
+      <div class="profile-info">
+        <div class="name">Amy Elsner</div>
+        <div class="role">HR Manager</div>
+        <div class="email">amy.com</div>
+        <div class="last-login">Last login: Jul 17, 2025, 3:32 PM</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Action Buttons -->
+    <div class="action-group">
+      <button
+        pButton
+        class="action-btn p-button-rounded p-button-text p-button-secondary">
+        <i class="fas fa-user"></i> My Account
+      </button>
+
+      <button
+        pButton
+        class="action-btn p-button-rounded p-button-text p-button-danger">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+
+  </div>
+</p-overlayPanel>
