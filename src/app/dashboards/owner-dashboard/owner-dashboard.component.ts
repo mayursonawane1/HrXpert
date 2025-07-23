@@ -11,6 +11,8 @@ export class OwnerDashboardComponent implements OnInit {
   orgDialogVisible = false;
   organizations: OrganizationList[] = [];
   selectedOrg: OrganizationList | null = null;
+  hrDialogVisible = false; // For Add HR dialog
+selectedOrgForHr: any = null; // Org we are adding HR to
 
   constructor(private organizationService: OrganizationService) {}
 
@@ -51,4 +53,9 @@ export class OwnerDashboardComponent implements OnInit {
   onDialogSave() {
     this.getAllOrganizations();
   }
+  
+  addHr(org: any): void {
+  this.selectedOrgForHr = org; // Set org for HR dialog
+  this.hrDialogVisible = true; // Open HR dialog
+}
 }

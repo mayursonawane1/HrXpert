@@ -26,10 +26,11 @@ import { DropdownModule } from 'primeng/dropdown';              // ← import th
 import { CardModule } from 'primeng/card';
 import { ProfileOverlayComponent } from './common/profile-overlay/profile-overlay.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { AddHrDialogComponent } from './owner/add-hr/add-hr.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, AddOrganizationDialogComponent, OwnerDashboardComponent, ProfileOverlayComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, AddOrganizationDialogComponent, OwnerDashboardComponent, ProfileOverlayComponent, AddHrDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

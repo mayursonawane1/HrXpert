@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-hr',
+  selector: 'app-add-hr-dialog',
   templateUrl: './add-hr.component.html',
-  styleUrl: './add-hr.component.scss'
+  styleUrls: ['./add-hr.component.scss']
 })
-export class AddHrComponent {
+export class AddHrDialogComponent implements OnInit {
+  @Input() organization: any;
+@Output() hrAdded = new EventEmitter<void>();
+@Output() cancel = new EventEmitter<void>();
 
-  hrForm: FormGroup;
-  hrList:any[] = [];
+  hrForm!: FormGroup;
 
-  constructor(
-    private fb: FormBuilder
-  ) {
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
     this.hrForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -22,56 +24,14 @@ export class AddHrComponent {
     });
   }
 
-    save() {
-      if (this.hrForm.invalid) {
-        this.hrForm.markAllAsTouched();
-        return;
-      }
-
-      const payload: any = this.hrForm.value;
-
-      // if (this.hrList.length) {
-      //   // ---- UPDATE MODE ----
-      //   this.orgService
-      //     .updateOrganization(this.hrList._id, payload)
-      //     .subscribe({
-      //       next: () => {
-      //         this.messageService.add({
-      //           severity: 'success',
-      //           summary: 'Updated',
-      //           detail: `Organization "${payload.name}" updated.`,
-      //         });
-      //       },
-      //       error: (err) => {
-      //         this.messageService.add({
-      //           severity: 'error',
-      //           summary: 'Error',
-      //           detail:
-      //             err.error?.message ||
-      //             'Failed to update organization.',
-      //         });
-      //       },
-      //     });
-      // } else {
-      //   // ---- CREATE MODE ----
-      //   this.orgService.createOrganization(payload).subscribe({
-      //     next: () => {
-      //       this.messageService.add({
-      //         severity: 'success',
-      //         summary: 'Created',
-      //         detail: `Organization "${payload.name}" created.`,
-      //       });
-      //     },
-      //     error: (err) => {
-      //       this.messageService.add({
-      //         severity: 'error',
-      //         summary: 'Error',
-      //         detail:
-      //           err.error?.message ||
-      //           'Failed to create organization.',
-      //       });
-      //     },
-      //   });
-      // }
+  save(): void {
+    if (this.hrForm.invalid) {
+      this.hrForm.markAllAsTouched();
+      return;
     }
+
+    const payload = this.hrForm.value;
+    console.log('HR payload:', payload);
+    // Call API here
+  }
 }

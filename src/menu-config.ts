@@ -21,8 +21,8 @@ export const MENU_CONFIG: MenuItem[] = [
         routerLink: '/dashboard',
       },
       {
-        label: 'Bookmarks',
-        icon: 'pi pi-bookmark',
+        label: 'My Profile',
+        icon: 'fa-regular fa-user',
         routerLink: '/bookmarks',
       },
       {

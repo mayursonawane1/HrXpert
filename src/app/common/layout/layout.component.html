@@ -30,7 +30,7 @@
         <img src="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar" />
         <span class="avatar-status"></span>
       </div>
-    <app-profile-overlay #profileOverlay></app-profile-overlay>
+      <app-profile-overlay #profileOverlay></app-profile-overlay>
 
     </div>
   </header>
@@ -123,14 +123,21 @@
           </div>
 
           <!-- Sidebar Footer -->
-          <div class="mt-auto">
-            <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
-            <a pRipple class="sidebar-link gap-2 m-3 flex align-items-center p-ripple">
-              <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                shape="circle"></p-avatar>
+          <div class="sidebar-footer flex align-items-center justify-content-between px-3 py-2">
+            <!-- Profile Info -->
+            <div class="flex align-items-center gap-2">
+              <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle">
+              </p-avatar>
               <span class="font-bold">Amy Elsner</span>
-            </a>
+            </div>
+
+            <!-- Logout Icon with Tooltip -->
+            <button pButton type="button" class="logout-btn p-button-rounded p-button-text p-button-danger"
+              pTooltip="Logout" tooltipPosition="right" (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
           </div>
+
         </div>
       </ng-template>
     </p-sidebar>

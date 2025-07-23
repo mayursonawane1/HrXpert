@@ -66,4 +66,8 @@ export class LayoutComponent implements OnInit {
           : undefined,
       }));
   }
+
+   logout() {
+  this.authService.logout();
+}
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddHrComponent } from './add-hr/add-hr.component';
+import { AddHrDialogComponent } from './add-hr/add-hr.component';
 
 const routes: Routes = [
   {
@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path:'addHr',
-    component: AddHrComponent
+    component: AddHrDialogComponent
   }
 ];
 
