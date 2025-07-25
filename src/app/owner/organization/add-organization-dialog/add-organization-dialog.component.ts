@@ -5,7 +5,7 @@ import {
   EventEmitter,
   OnInit,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrganizationService } from '../services/organization.service';
@@ -46,7 +46,8 @@ export class AddOrganizationDialogComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // When the `organization` Input changes, patch or reset
+    if (!this.orgForm) return;
+
     if (changes['organization']) {
       if (this.organization) {
         this.title = 'Edit Organization';
@@ -98,9 +99,7 @@ export class AddOrganizationDialogComponent implements OnInit, OnChanges {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail:
-                err.error?.message ||
-                'Failed to update organization.',
+              detail: err.error?.message || 'Failed to update organization.',
             });
           },
         });
@@ -120,9 +119,7 @@ export class AddOrganizationDialogComponent implements OnInit, OnChanges {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail:
-              err.error?.message ||
-              'Failed to create organization.',
+            detail: err.error?.message || 'Failed to create organization.',
           });
         },
       });

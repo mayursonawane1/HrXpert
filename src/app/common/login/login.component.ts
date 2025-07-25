@@ -7,7 +7,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   signForm: FormGroup;
@@ -17,8 +17,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private messageService: MessageService,
-    
+    private messageService: MessageService
   ) {
     this.signForm = this.fb.group({
       userName: ['', [Validators.required, Validators.email]],
@@ -39,18 +38,20 @@ export class LoginComponent {
         localStorage.setItem('user', JSON.stringify(res.user));
 
         this.messageService.add({
-          severity: 'success', 
-          summary: 'Login Successful', 
-          detail: 'Welcome to the Dashboard!'
+          severity: 'success',
+          summary: 'Login Successful',
+          detail: 'Welcome to the Dashboard!',
         });
 
-        this.router.navigate(['/dashboard']);
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 50);
       },
       error: () => {
         this.messageService.add({
-          severity: 'error', 
-          summary: 'Login Failed', 
-          detail: 'Invalid credentials, please try again.'
+          severity: 'error',
+          summary: 'Login Failed',
+          detail: 'Invalid credentials, please try again.',
         });
       },
     });
