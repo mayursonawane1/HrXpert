@@ -6,7 +6,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { SkeletonModule } from 'primeng/skeleton'
 import { HrViewDialogComponent } from './hr-view-dialog/hr-view-dialog.component';
 import { AddHrDialogComponent } from './add-hr/add-hr.component';
 import { AddOrganizationDialogComponent } from './organization/add-organization-dialog/add-organization-dialog.component';
@@ -23,6 +23,7 @@ import { OwnerDashboardComponent } from '../dashboards/owner-dashboard/owner-das
     CommonModule,
     OwnerRoutingModule,
     DialogModule,
+    SkeletonModule,
     TableModule,
     ButtonModule,
     CardModule,

@@ -28,10 +28,12 @@ import { ProfileOverlayComponent } from './common/profile-overlay/profile-overla
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AddHrDialogComponent } from './owner/add-hr/add-hr.component';
 import { HrViewDialogComponent } from './owner/hr-view-dialog/hr-view-dialog.component';
+import { LoaderInterceptor } from './core/laoder.interceptor';
+import { FullscreenLoaderComponent } from './shared/components/fullscreen-loader/fullscreen-loader.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, ProfileOverlayComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, ProfileOverlayComponent, FullscreenLoaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -56,6 +58,7 @@ import { HrViewDialogComponent } from './owner/hr-view-dialog/hr-view-dialog.com
   providers: [
     provideHttpClient(withFetch()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     MessageService,
   ],
   bootstrap: [AppComponent],

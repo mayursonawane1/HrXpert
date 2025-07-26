@@ -16,17 +16,29 @@ selectedOrgForHr: any = null; // Org we are adding HR to
 hrListDialogVisible = false;
 selectedOrgForHrView: any = null;
 selectedOrgName: string = '';
+loading = true;
+
   constructor(private organizationService: OrganizationService) {}
 
   ngOnInit() {
     this.getAllOrganizations();
   }
 
-  getAllOrganizations() {
-    this.organizationService
-      .getAllOrganizations()
-      .subscribe((data) => (this.organizations = data));
-  }
+ getAllOrganizations() {
+  this.loading = true; // 🟡 Start loader
+
+  this.organizationService.getAllOrganizations().subscribe({
+    next: (data) => {
+      this.organizations = data;
+      this.loading = false; // ✅ Stop loader
+    },
+    error: (err) => {
+      console.error('Error fetching organizations:', err);
+      this.loading = false; // 🟥 Also stop loader on error
+    }
+  });
+}
+
 
   // "Add Organization" button
   showOrgDialog() {

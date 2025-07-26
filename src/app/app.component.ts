@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { LoaderService } from './core/loader.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']  // ✅ typo fixed: use "styleUrls" (plural)
 })
 export class AppComponent {
   title = 'hrXpert';
+  loading = false;
+
+  constructor(private loaderService: LoaderService) {
+    this.loaderService.loading$.subscribe(state => {
+      this.loading = state;
+    });
+  }
 }
