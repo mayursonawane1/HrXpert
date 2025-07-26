@@ -1,17 +1,30 @@
 <div class="container mt-4">
 
-  <!-- Add button above card -->
-  <div class="d-flex justify-content-end mb-3">
+  <!-- 🔹 Dashboard Heading -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex align-items-center gap-2">
+      <i class="pi pi-home me-1" style="font-size: 1.5rem;"></i>
+      <h2 class="fw-bold mb-0">Owner Dashboard</h2>
+    </div>
+
+    <!-- Add Organization Button -->
     <button class="btn add-org-btn d-flex align-items-center gap-2" (click)="showOrgDialog()">
       <i class="pi pi-plus"></i> Add Organization
     </button>
   </div>
 
   <!-- Card wrapping the table -->
-  <p-card styleClass="custom-card no-padding">
+  <p-card styleClass="custom-card mb-4">
+   <ng-template pTemplate="header">
+    <div class="d-flex align-items-center gap-2 ps-3 py-4 bg-light border-bottom rounded-top">
+
+      <i class="pi pi-building" style="font-size: 1.2rem;"></i>
+      <span class="fw-semibold re">Organization Directory</span>
+    </div>
+  </ng-template>
     <!-- PrimeNG table -->
-    <p-table #dt [value]="organizations" [paginator]="true" [rows]="5" sortMode="multiple" responsiveLayout="scroll">
-      <ng-template pTemplate="header">
+    <p-table #dt [value]="organizations" [paginator]="true" [rows]="5" sortMode="multiple" responsiveLayout="scroll">      
+      <ng-template pTemplate="header" style="border-radius: 10px solid red;">
         <tr>
           <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
           <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
@@ -38,6 +51,8 @@
               (click)="deleteOrganization(org._id)"></button>
             <button pButton type="button" icon="pi pi-user-plus" class="p-button-rounded p-button-text p-button-success"
               (click)="addHr(org)" pTooltip="Add HR" tooltipPosition="top"></button>
+            <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
+              (click)="viewHrs(org)" pTooltip="View HRs"></button>
           </td>
         </tr>
       </ng-template>
@@ -49,11 +64,32 @@
       </ng-template>
     </p-table>
   </p-card>
- <p-dialog [(visible)]="hrDialogVisible" [modal]="true" [style]="{width: '30vw'}">
-  <app-add-hr-dialog></app-add-hr-dialog>
-</p-dialog>
 
+  <!-- Add HR Dialog -->
+  <p-dialog [(visible)]="hrDialogVisible" [modal]="true" [style]="{width: '30vw'}">
+    <app-add-hr-dialog></app-add-hr-dialog>
+  </p-dialog>
 
+  <!-- HR List Dialog -->
+  <p-dialog [(visible)]="hrListDialogVisible" [modal]="true" [resizable]="false" [maximizable]="true"
+    [style]="{ width: '60vw' }" [contentStyle]="{ height: '300px', padding: '0' }" [baseZIndex]="10000"
+    [resizable]="true">
+    <ng-template pTemplate="header">
+      <div class="d-flex align-items-center gap-2">
+        <i class="pi pi-eye"></i>
+        <span class="dialog-title">
+          HR Directory of "{{ selectedOrgForHrView?.name || 'Organization' }}"
+        </span>
+      </div>
+    </ng-template>
+
+    <app-hr-view-dialog [orgId]="selectedOrgForHrView?._id"></app-hr-view-dialog>
+
+    <ng-template pTemplate="footer">
+      <button pButton icon="pi pi-times" label="Close" class="p-button-secondary"
+        (click)="hrListDialogVisible = false"></button>
+    </ng-template>
+  </p-dialog>
 
   <!-- Add/Edit Dialog -->
   <app-add-organization-dialog [(visible)]="orgDialogVisible" [organization]="selectedOrg"

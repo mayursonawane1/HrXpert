@@ -13,7 +13,9 @@ export class OwnerDashboardComponent implements OnInit {
   selectedOrg: OrganizationList | null = null;
   hrDialogVisible = false; // For Add HR dialog
 selectedOrgForHr: any = null; // Org we are adding HR to
-
+hrListDialogVisible = false;
+selectedOrgForHrView: any = null;
+selectedOrgName: string = '';
   constructor(private organizationService: OrganizationService) {}
 
   ngOnInit() {
@@ -57,5 +59,15 @@ selectedOrgForHr: any = null; // Org we are adding HR to
   addHr(org: any): void {
   this.selectedOrgForHr = org; // Set org for HR dialog
   this.hrDialogVisible = true; // Open HR dialog
+}
+viewHrs(org: any): void {
+  this.selectedOrgForHrView = org;
+  this.hrListDialogVisible = true;
+}
+
+onHrDialogClose() {
+  this.hrListDialogVisible = false;
+  this.selectedOrgForHrView = null;
+  this.selectedOrgName = '';
 }
 }

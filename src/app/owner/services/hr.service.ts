@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environment/environment';
+import { HrUser } from '../models/hr.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,4 +28,9 @@ export class HrService {
 
     return this.http.put(`${this.baseUrl}/hr/${id}`, data, { headers });
   }
+
+  getHrsByOrgId(orgId: string) {
+  return this.http.get<HrUser[]>(`${this.baseUrl}/hr/org/${orgId}`);
+}
+
 }

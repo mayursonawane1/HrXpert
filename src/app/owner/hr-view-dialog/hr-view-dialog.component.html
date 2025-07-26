@@ -1,0 +1,21 @@
+<p-table
+  [value]="hrList"
+  [scrollable]="true"
+  scrollHeight="flex"
+  [tableStyle]="{ 'min-width': '100%' }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th><i class="pi pi-user me-1"></i> Name</th>
+      <th><i class="pi pi-envelope me-1"></i> Email</th>
+      <th><i class="pi pi-phone me-1"></i> Phone</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-hr>
+    <tr>
+      <td>{{ hr.name }}</td>
+      <td>{{ hr.email }}</td>
+      <td>{{ hr.phoneNo }}</td>
+    </tr>
+  </ng-template>
+</p-table>

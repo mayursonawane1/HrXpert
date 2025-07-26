@@ -10,47 +10,55 @@ const routes: Routes = [
   // Public login page
   { path: 'login', component: LoginComponent },
 
+  // OWNER routes
   {
-    path: '',
+    path: 'owner',
     component: LayoutComponent,
     canActivate: [authGuard],
     data: { roles: ['owner'] },
     children: [
       { path: 'dashboard', component: OwnerDashboardComponent },
       {
-        path: 'owner',
-        loadChildren: () => import('./owner/owner.module').then((m) => m.OwnerModule),
+        path: '',
+        loadChildren: () =>
+          import('./owner/owner.module').then((m) => m.OwnerModule),
       },
     ],
   },
+
+  // HR routes
   {
-    path: '',
+    path: 'hr',
     component: LayoutComponent,
     canActivate: [authGuard],
-    data: { roles: ['hr', 'owner'] },
+    data: { roles: ['hr'] },
     children: [
       { path: 'dashboard', component: DashboardComponent },
       {
-        path: 'hr',
-        loadChildren: () => import('./hr/hr.module').then((m) => m.HrModule),
+        path: '',
+        loadChildren: () =>
+          import('./hr/hr.module').then((m) => m.HrModule),
       },
     ],
   },
+
+  // EMPLOYEE routes
   {
-    path: '',
+    path: 'employee',
     component: LayoutComponent,
     canActivate: [authGuard],
     data: { roles: ['employee'] },
     children: [
       { path: 'dashboard', component: DashboardComponent },
       {
-        path: 'employee',
-        loadChildren: () => import('./employee/employee.module').then((m) => m.EmployeeModule),
+        path: '',
+        loadChildren: () =>
+          import('./employee/employee.module').then((m) => m.EmployeeModule),
       },
     ],
   },
 
-  // Wildcard redirect
+  // Wildcard fallback
   { path: '**', redirectTo: 'login' },
 ];
 

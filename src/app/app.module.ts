@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './common/login/login.component';
@@ -27,10 +27,11 @@ import { CardModule } from 'primeng/card';
 import { ProfileOverlayComponent } from './common/profile-overlay/profile-overlay.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AddHrDialogComponent } from './owner/add-hr/add-hr.component';
+import { HrViewDialogComponent } from './owner/hr-view-dialog/hr-view-dialog.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, AddOrganizationDialogComponent, OwnerDashboardComponent, ProfileOverlayComponent, AddHrDialogComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, LayoutComponent, ProfileOverlayComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -49,10 +50,11 @@ import { AddHrDialogComponent } from './owner/add-hr/add-hr.component';
     FormsModule,
     DropdownModule,
     TableModule,
-    CardModule
+    CardModule,
+    
   ],
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     MessageService,
   ],

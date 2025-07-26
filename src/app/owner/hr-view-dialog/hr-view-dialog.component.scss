@@ -1,0 +1,22 @@
+::ng-deep .p-dialog {
+  border-radius: 10px;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: #f6f8fa;
+  padding: 1rem;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: #ffffff;
+}
+
+::ng-deep .p-table th {
+  background-color: #f0f2f5;
+  font-weight: 600;
+}
+
+::ng-deep .p-table td, .p-table th {
+  padding: 0.75rem;
+}

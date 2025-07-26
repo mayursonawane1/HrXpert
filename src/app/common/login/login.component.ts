@@ -30,30 +30,44 @@ export class LoginComponent {
   }
 
   signin(): void {
-    if (this.signForm.invalid) return;
+  if (this.signForm.invalid) return;
 
-    this.authService.login(this.signForm.value).subscribe({
-      next: (res: any) => {
-        localStorage.setItem('authToken', res.user.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
+  this.authService.login(this.signForm.value).subscribe({
+    next: (res: any) => {
+      const user = res.user;
+      localStorage.setItem('authToken', user.token);
+      localStorage.setItem('user', JSON.stringify(user));
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Login Successful',
-          detail: 'Welcome to the Dashboard!',
-        });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Login Successful',
+        detail: 'Welcome to the Dashboard!',
+      });
 
-        setTimeout(() => {
-          this.router.navigate(['/dashboard']);
-        }, 50);
-      },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Login Failed',
-          detail: 'Invalid credentials, please try again.',
-        });
-      },
-    });
-  }
+      // ✅ Redirect based on user role
+      switch (user.role) {
+        case 'owner':
+          this.router.navigate(['/owner/dashboard']);
+          break;
+        case 'hr':
+          this.router.navigate(['/hr/dashboard']);
+          break;
+        case 'employee':
+          this.router.navigate(['/employee/dashboard']);
+          break;
+        default:
+          this.router.navigate(['/login']);
+          break;
+      }
+    },
+    error: () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Login Failed',
+        detail: 'Invalid credentials, please try again.',
+      });
+    },
+  });
+}
+
 }
