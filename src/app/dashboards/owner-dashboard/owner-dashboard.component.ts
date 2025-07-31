@@ -8,15 +8,15 @@ import { OrganizationList } from '../../owner/organization/models/organization.m
   styleUrls: ['./owner-dashboard.component.scss'],
 })
 export class OwnerDashboardComponent implements OnInit {
-  orgDialogVisible = false;
+    orgDialogVisible = false;
   organizations: OrganizationList[] = [];
   selectedOrg: OrganizationList | null = null;
-  hrDialogVisible = false; // For Add HR dialog
-selectedOrgForHr: any = null; // Org we are adding HR to
-hrListDialogVisible = false;
-selectedOrgForHrView: any = null;
-selectedOrgName: string = '';
-loading = true;
+  hrDialogVisible = false;  // Control the visibility of the HR dialog
+  selectedOrgForHr: any = null; // Organization for which HR is being added
+  hrListDialogVisible = false;
+  selectedOrgForHrView: any = null;
+  selectedOrgName: string = '';
+  loading = true;
 
   constructor(private organizationService: OrganizationService) {}
 
@@ -68,18 +68,18 @@ loading = true;
     this.getAllOrganizations();
   }
   
-  addHr(org: any): void {
-  this.selectedOrgForHr = org; // Set org for HR dialog
-  this.hrDialogVisible = true; // Open HR dialog
-}
+   addHr(org: any): void {
+    this.selectedOrgForHr = org; // Set org for HR dialog
+    this.hrDialogVisible = true; // Open HR dialog
+  }
 viewHrs(org: any): void {
   this.selectedOrgForHrView = org;
   this.hrListDialogVisible = true;
 }
 
-onHrDialogClose() {
-  this.hrListDialogVisible = false;
-  this.selectedOrgForHrView = null;
-  this.selectedOrgName = '';
-}
+ onHrDialogClose() {
+    this.hrListDialogVisible = false;
+    this.selectedOrgForHrView = null;
+    this.selectedOrgName = '';
+  }
 }

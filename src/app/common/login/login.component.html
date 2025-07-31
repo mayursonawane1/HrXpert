@@ -1,55 +1,78 @@
-<p-toast [style]="{position: 'absolute', top: '10px', right: '10px'}"></p-toast>
+<p-toast [style]="{position: 'fixed', top: '20px', right: '20px', 'z-index': '9999'}"></p-toast>
+
 <div class="login-page">
-  <div class="container-fluid login-container">
-    <div class="row w-100 align-items-center justify-content-center">
+  <div class="login-container">
 
-      <!-- Illustration Column -->
-      <div class="col-md-6 d-none d-md-block">
-        <img src="assets/img/login-illustration.jpg" class="img-fluid illustration-img" />
-      </div>
-
-      <!-- Login Card Column -->
-      <div class="col-md-6">
-        <div class="login-card">
-          <img src="assets/img/HrXpert-tight.png" alt="Logo" class="login-logo" />
-          <h2 class="welcome-text">Welcome</h2>
-
-          <form [formGroup]="signForm" (ngSubmit)="signin()">
-            <div class="form-group text-start">
-              <label for="emailInput" class="form-label">Email</label>
-              <input
-                id="emailInput"
-                type="email"
-                placeholder="Email"
-                formControlName="userName"
-                class="form-control custom-input"
-                required />
-            </div>
-
-            <div class="form-group text-start position-relative">
-              <label for="passwordInput" class="form-label">Password</label>
-              <input
-                id="passwordInput"
-                [type]="showPassword ? 'text' : 'password'"
-                placeholder="Password"
-                formControlName="password"
-                class="form-control custom-input pr-5"
-                required />
-              <i
-                class="fa align fa-eye"
-                [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
-                (click)="togglePasswordVisibility()"></i>
-            </div>
-
-            <button type="submit" class="btn custom-button">Log In</button>
-
-            <div class="forgot-password-container">
-              <a routerLink="/forgot-password" class="forgot-password">Forgot password?</a>
-            </div>
-          </form>
+    <!-- Illustration Section -->
+    <div class="illustration-section">
+      <div class="illustration-content">
+        <div class="image-container">
+          <img src="assets/img/login-illustration.jpg" alt="HrXpert Illustration" class="illustration-image" />
+        </div>
+        <div class="illustration-text">
+          <h1 class="illustration-title">Welcome to HrXpert</h1>
+          <p class="illustration-subtitle">
+            Transform your HR operations with intelligent automation and seamless workforce management
+          </p>
         </div>
       </div>
 
+      <!-- Animated Background Elements -->
+      <div class="floating-elements">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+        <div class="floating-square square-1"></div>
+        <div class="floating-square square-2"></div>
+      </div>
+    </div>
+
+    <!-- Login Form Section -->
+    <div class="login-section">
+      <div class="login-card">
+
+        <!-- Logo and Header -->
+        <div class="login-header">
+          <div class="logo-container">
+            <img src="assets/img/HrXpert-tight.png" alt="HrXpert Logo" class="logo" />
+          </div>
+          <h2 class="welcome-text">Welcome Back !</h2>
+          <p class="subtitle">Sign in to continue to your account</p>
+        </div>
+
+        <!-- Login Form -->
+        <form [formGroup]="signForm" (ngSubmit)="signin()" class="simple-login-form">
+
+          <!-- Email -->
+          <div class="form-field">
+            <label for="email"><i class="fa-solid fa-envelope me-2"></i>Email Address</label>
+            <input pInputText id="email" formControlName="userName" type="email" placeholder="Enter your email"
+              class="p-inputtext w-full" />
+            <small class="p-error" *ngIf="signForm.get('userName')?.invalid && signForm.get('userName')?.touched">
+              Please enter a valid email.
+            </small>
+          </div>
+
+          <!-- Password -->
+          <div class="form-field">
+            <label for="password"><i class="fa-solid fa-key me-2"></i>Password</label>
+            <input pInputText id="password" formControlName="password" type="password" placeholder="Enter your password"
+              class="p-inputtext w-full" />
+            <small class="p-error" *ngIf="signForm.get('password')?.invalid && signForm.get('password')?.touched">
+              Password must be at least 6 characters.
+            </small>
+          </div>
+
+          <!-- Login Button -->
+          <div class="form-field">
+            <button pButton type="submit" label="{{ isLoading ? 'Signing in...' : 'Login' }}" [loading]="isLoading"
+              [disabled]="signForm.invalid || isLoading" class="lg-btn">
+            </button>
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
+
 </div>

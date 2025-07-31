@@ -1,62 +1,231 @@
-<p-dialog [header]="title" [(visible)]="visible" [modal]="true" [style]="{ width: '600px' }"
-  [breakpoints]="{ '960px': '95vw', '640px': '100vw' }" [dismissableMask]="true" [resizable]="false"
-  contentStyleClass="add-employee-card compact-form" (onHide)="onDialogClose()">
-  <form [formGroup]="orgForm" novalidate>
-    <div class="row g-3">
-      <!-- Name -->
-      <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">
-          Name <span class="text-danger">*</span>
-        </label>
-        <input pInputText type="text" class="form-control" placeholder="Enter Organization Name"
-          formControlName="name" />
-        <small *ngIf="orgForm.get('name')?.touched && orgForm.get('name')?.hasError('required')" class="p-error">
-          Name is required.
-        </small>
+<p-dialog 
+  [(visible)]="visible" 
+  [modal]="true" 
+  [style]="{ width: '700px' }"
+  [breakpoints]="{ '960px': '95vw', '640px': '100vw' }" 
+  [dismissableMask]="true" 
+  [resizable]="false"
+  [baseZIndex]="10000"
+  styleClass="enhanced-organization-dialog"
+  (visibleChange)="visibleChange.emit($event)"
+  (onHide)="onDialogClose()">
+  
+  <ng-template pTemplate="header">
+    <div class="dialog-header-content">
+      <div class="dialog-icon">
+        <i class="pi pi-building"></i>
       </div>
-
-      <!-- Email -->
-      <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">
-          Email <span class="text-danger">*</span>
-        </label>
-        <input pInputText type="email" class="form-control" placeholder="info@techcorp.com" formControlName="email" />
-        <small *ngIf="orgForm.get('email')?.touched && orgForm.get('email')?.hasError('required')" class="p-error">
-          Email is required.
-        </small>
-        <small *ngIf="orgForm.get('email')?.touched && orgForm.get('email')?.hasError('email')" class="p-error">
-          Invalid email format.
-        </small>
-      </div>
-
-      <!-- Phone -->
-      <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">
-          Phone Number <span class="text-danger">*</span>
-        </label>
-        <input pInputText type="tel" class="form-control" placeholder="Enter Phone Number" formControlName="phoneNo" />
-        <small *ngIf="orgForm.get('phoneNo')?.touched && orgForm.get('phoneNo')?.hasError('required')" class="p-error">
-          Phone number is required.
-        </small>
-      </div>
-
-      <!-- City -->
-      <div class="col-12 md:col-6">
-        <label class="form-label fw-semibold">
-          City <span class="text-danger">*</span>
-        </label>
-        <input pInputText type="text" class="form-control" placeholder="Enter City" formControlName="city" />
-        <small *ngIf="orgForm.get('city')?.touched && orgForm.get('city')?.hasError('required')" class="p-error">
-          City is required.
-        </small>
+      <div class="dialog-title-section">
+        <h3 class="dialog-title">{{ title }}</h3>
+        <p class="dialog-subtitle">{{ organization ? 'Update organization details' : 'Create new organization' }}</p>
       </div>
     </div>
+  </ng-template>
 
-    <div class="mt-4 d-flex justify-content-center">
-      <button type="button" class="btn save px-5" [disabled]="orgForm.invalid" (click)="save()">
-        <i class="pi pi-save me-2"></i>
-        Save
+  <div class="dialog-body">
+    <form [formGroup]="orgForm" novalidate>
+      <div class="form-grid">
+        
+        <!-- Organization Name -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">Organization Name</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="input-icon pi pi-building"></i>
+            <input 
+              pInputText 
+              type="text" 
+              class="form-input"
+              [class.error]="getFieldError('name')"
+              placeholder="Enter organization name"
+              formControlName="name" 
+            />
+          </div>
+          <small *ngIf="getFieldError('name')" class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            {{ getFieldError('name') }}
+          </small>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">Email Address</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="input-icon pi pi-envelope"></i>
+            <input 
+              pInputText 
+              type="email" 
+              class="form-input"
+              [class.error]="getFieldError('email')"
+              placeholder="organization@company.com" 
+              formControlName="email" 
+            />
+          </div>
+          <small *ngIf="getFieldError('email')" class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            {{ getFieldError('email') }}
+          </small>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">Phone Number</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="input-icon pi pi-phone"></i>
+            <input 
+              pInputText 
+              type="tel" 
+              class="form-input"
+              [class.error]="getFieldError('phoneNo')"
+              placeholder="+1 (555) 123-4567" 
+              formControlName="phoneNo" 
+            />
+          </div>
+          <small *ngIf="getFieldError('phoneNo')" class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            {{ getFieldError('phoneNo') }}
+          </small>
+        </div>
+
+        <!-- City -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">City</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="input-icon pi pi-map-marker"></i>
+            <input 
+              pInputText 
+              type="text" 
+              class="form-input"
+              [class.error]="getFieldError('city')"
+              placeholder="Enter city name" 
+              formControlName="city" 
+            />
+          </div>
+          <small *ngIf="getFieldError('city')" class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            {{ getFieldError('city') }}
+          </small>
+        </div>
+
+        <!-- Logo Upload Section -->
+        <div class="form-group logo-section full-width">
+          <label class="form-label">
+            <span class="label-text">Organization Logo</span>
+            <span class="optional-text">(Optional)</span>
+          </label>
+          
+          <div class="logo-upload-area">
+            
+            <!-- Upload Placeholder -->
+            <div *ngIf="!logoPreview" class="upload-placeholder" [class.uploading]="isUploading">
+              <input 
+                type="file" 
+                class="file-input" 
+                accept="image/*" 
+                (change)="onLogoSelected($event)"
+                [disabled]="isUploading"
+                #fileInput
+              />
+              
+              <div *ngIf="!isUploading" class="upload-content" (click)="fileInput.click()">
+                <div class="upload-icon-wrapper">
+                  <i class="pi pi-cloud-upload upload-icon"></i>
+                </div>
+                <div class="upload-text-content">
+                  <p class="upload-text">Drop your logo here or <span class="upload-link">browse</span></p>
+                  <p class="upload-subtext">Supports PNG, JPG up to 5MB</p>
+                </div>
+              </div>
+
+              <div *ngIf="isUploading" class="upload-loading">
+                <div class="loading-spinner">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </div>
+                <span class="loading-text">Uploading logo...</span>
+              </div>
+            </div>
+
+            <!-- Logo Preview -->
+            <div *ngIf="logoPreview && !isUploading" class="logo-preview-container">
+              <div class="logo-preview">
+                <img [src]="logoPreview" alt="Organization Logo" class="preview-image" />
+                <div class="logo-actions">
+                  <button 
+                    type="button" 
+                    class="action-btn change-btn"
+                    (click)="fileInput.click()"
+                    pTooltip="Change logo"
+                    tooltipPosition="top">
+                    <i class="pi pi-pencil"></i>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="action-btn remove-btn"
+                    (click)="removeLogo()"
+                    pTooltip="Remove logo"
+                    tooltipPosition="top">
+                    <i class="pi pi-trash"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="logo-info">
+                <div class="file-details">
+                  <i class="pi pi-image"></i>
+                  <div class="file-meta">
+                    <span class="file-name">{{ selectedFileName }}</span>
+                    <span class="file-status">Ready to upload</span>
+                  </div>
+                </div>
+              </div>
+
+              <input 
+                type="file" 
+                class="file-input" 
+                accept="image/*" 
+                (change)="onLogoSelected($event)"
+                #fileInput
+              />
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <button 
+        type="button" 
+        class="btn-secondary" 
+        (click)="onDialogClose()"
+        [disabled]="isSubmitting">
+        <i class="pi pi-times"></i>
+        <span>Cancel</span>
+      </button>
+      <button 
+        type="button" 
+        class="btn-primary" 
+        [disabled]="orgForm.invalid || isSubmitting"
+        [class.loading]="isSubmitting"
+        (click)="save()">
+        <i *ngIf="!isSubmitting" class="pi pi-check"></i>
+        <span>{{ isSubmitting ? 'Saving...' : (organization ? 'Update Organization' : 'Create Organization') }}</span>
       </button>
     </div>
-  </form>
+  </ng-template>
+
 </p-dialog>

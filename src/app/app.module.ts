@@ -26,10 +26,11 @@ import { DropdownModule } from 'primeng/dropdown';              // ← import th
 import { CardModule } from 'primeng/card';
 import { ProfileOverlayComponent } from './common/profile-overlay/profile-overlay.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { AddHrDialogComponent } from './owner/add-hr/add-hr.component';
 import { HrViewDialogComponent } from './owner/hr-view-dialog/hr-view-dialog.component';
 import { LoaderInterceptor } from './core/laoder.interceptor';
 import { FullscreenLoaderComponent } from './shared/components/fullscreen-loader/fullscreen-loader.component';
+import { PasswordModule } from 'primeng/password';
+
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import { FullscreenLoaderComponent } from './shared/components/fullscreen-loader
     DropdownModule,
     TableModule,
     CardModule,
-    
+    PasswordModule
   ],
   providers: [
     provideHttpClient(withFetch()),

@@ -30,14 +30,8 @@
             <label class="form-label fw-semibold">
               First Name <span class="text-danger">*</span>
             </label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter First Name"
-              [(ngModel)]="employee.firstName"
-              name="firstName"
-              required
-            />
+            <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="employee.firstName"
+              name="firstName" required />
           </div>
 
           <!-- Last Name -->
@@ -45,14 +39,8 @@
             <label class="form-label fw-semibold">
               Last Name <span class="text-danger">*</span>
             </label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Last Name"
-              [(ngModel)]="employee.lastName"
-              name="lastName"
-              required
-            />
+            <input type="text" class="form-control" placeholder="Enter Last Name" [(ngModel)]="employee.lastName"
+              name="lastName" required />
           </div>
 
           <!-- Email -->
@@ -60,14 +48,8 @@
             <label class="form-label fw-semibold">
               Email <span class="text-danger">*</span>
             </label>
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Enter Email"
-              [(ngModel)]="employee.email"
-              name="email"
-              required
-            />
+            <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="employee.email" name="email"
+              required />
           </div>
 
           <!-- Phone Number -->
@@ -75,14 +57,8 @@
             <label class="form-label fw-semibold">
               Phone Number <span class="text-danger">*</span>
             </label>
-            <input
-              type="tel"
-              class="form-control"
-              placeholder="Enter Phone Number"
-              [(ngModel)]="employee.phone"
-              name="phone"
-              required
-            />
+            <input type="tel" class="form-control" placeholder="Enter Phone Number" [(ngModel)]="employee.phone"
+              name="phone" required />
           </div>
 
           <!-- Password with toggle -->
@@ -91,18 +67,11 @@
               Password <span class="text-danger">*</span>
             </label>
             <div class="position-relative">
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                class="form-control pe-5"
-                placeholder="Enter Password"
-                [(ngModel)]="employee.password"
-                name="password"
-                required
-              />
-              <i
-                class="pi"
-                [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'"
-                (click)="togglePasswordVisibility()"
+              <p-password [(ngModel)]="employee.password" name="password" required [feedback]="true" [toggleMask]="true"
+                promptLabel="Enter a password" weakLabel="Weak" mediumLabel="Medium" strongLabel="Strong"
+                [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }" placeholder="Enter Password"></p-password>
+
+              <i class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'" (click)="togglePasswordVisibility()"
                 style="
                   position: absolute;
                   top: 50%;
@@ -110,11 +79,8 @@
                   transform: translateY(-50%);
                   cursor: pointer;
                   color: #888;
-                "
-                (mouseenter)="hoverEye = true"
-                (mouseleave)="hoverEye = false"
-                [style.color]="hoverEye ? '#495057' : '#888'"
-              ></i>
+                " (mouseenter)="hoverEye = true" (mouseleave)="hoverEye = false"
+                [style.color]="hoverEye ? '#495057' : '#888'"></i>
             </div>
           </div>
 
@@ -123,15 +89,8 @@
             <label class="form-label fw-semibold">
               Employee Type <span class="text-danger">*</span>
             </label>
-            <p-dropdown
-              [options]="employeeTypes"
-              [(ngModel)]="selectedEmployeeType"
-              optionLabel="name"
-              placeholder="Select Employee Type"
-              appendTo="body"
-              name="employeeType"
-              required
-            >
+            <p-dropdown [options]="employeeTypes" [(ngModel)]="selectedEmployeeType" optionLabel="name"
+              placeholder="Select Employee Type" appendTo="body" name="employeeType" required>
               <ng-template let-type pTemplate="item">
                 <div class="d-flex align-items-center">
                   <i class="pi pi-users me-2"></i>
@@ -146,15 +105,8 @@
             <label class="form-label fw-semibold">
               Work Location <span class="text-danger">*</span>
             </label>
-            <p-dropdown
-              [options]="workLocations"
-              [(ngModel)]="selectedWorkLocation"
-              optionLabel="name"
-              placeholder="Select Work Location"
-              appendTo="body"
-              name="workLocation"
-              required
-            >
+            <p-dropdown [options]="workLocations" [(ngModel)]="selectedWorkLocation" optionLabel="name"
+              placeholder="Select Work Location" appendTo="body" name="workLocation" required>
               <ng-template let-location pTemplate="item">
                 <div class="d-flex align-items-center gap-2">
                   <i class="pi pi-map-marker"></i>
@@ -169,25 +121,12 @@
             <label class="form-label fw-semibold">
               Employee Status <span class="text-danger">*</span>
             </label>
-            <p-dropdown
-              [options]="employeeStatuses"
-              [(ngModel)]="selectedEmployeeStatus"
-              optionLabel="label"
-              placeholder="Select Status"
-              appendTo="body"
-              name="employeeStatus"
-              required
-            >
+            <p-dropdown [options]="employeeStatuses" [(ngModel)]="selectedEmployeeStatus" optionLabel="label"
+              placeholder="Select Status" appendTo="body" name="employeeStatus" required>
               <ng-template let-status pTemplate="item">
                 <div class="d-flex align-items-center gap-2">
-                  <i
-                    class="pi pi-check-circle"
-                    *ngIf="status.value === 'active'"
-                  ></i>
-                  <i
-                    class="pi pi-times-circle"
-                    *ngIf="status.value === 'inactive'"
-                  ></i>
+                  <i class="pi pi-check-circle" *ngIf="status.value === 'active'"></i>
+                  <i class="pi pi-times-circle" *ngIf="status.value === 'inactive'"></i>
                   <span>{{ status.label }}</span>
                 </div>
               </ng-template>
@@ -199,43 +138,20 @@
             <label class="form-label fw-semibold">
               Date of Joining <span class="text-danger">*</span>
             </label>
-            <p-calendar
-              [(ngModel)]="employee.dateOfJoining"
-              [showIcon]="true"
-              [iconDisplay]="'input'"
-              dateFormat="dd/mm/yy"
-              name="dateOfJoining"
-              placeholder="Select Date"
-              required
-            ></p-calendar>
+            <p-calendar [(ngModel)]="employee.dateOfJoining" [showIcon]="true" [iconDisplay]="'input'"
+              dateFormat="dd/mm/yy" name="dateOfJoining" placeholder="Select Date" required></p-calendar>
           </div>
 
           <!-- Upload Photo -->
           <div class="col-md-6 col-lg-4">
             <label class="form-label fw-semibold">Upload Photo</label>
-            <input
-              type="file"
-              class="form-control"
-              accept="image/*"
-              (change)="onImageSelected($event)"
-            />
+            <input type="file" class="form-control" accept="image/*" (change)="onImageSelected($event)" />
 
-            <div
-              *ngIf="imagePreview"
-              class="position-relative mt-2 d-inline-block"
-            >
-              <img
-                [src]="imagePreview"
-                alt="Photo Preview"
-                class="img-thumbnail"
-                style="max-width: 150px;"
-              />
-              <button
-                type="button"
+            <div *ngIf="imagePreview" class="position-relative mt-2 d-inline-block">
+              <img [src]="imagePreview" alt="Photo Preview" class="img-thumbnail" style="max-width: 150px;" />
+              <button type="button"
                 class="btn btn-sm btn-light text-danger position-absolute top-0 end-0 m-1 p-1 border-0 shadow-sm"
-                (click)="removeImage()"
-                pTooltip="Remove photo"
-              >
+                (click)="removeImage()" pTooltip="Remove photo">
                 <i class="pi pi-trash"></i>
               </button>
             </div>
@@ -247,11 +163,7 @@
           <button class="save btn px-4" type="submit" (click)="saveEmployee()">
             <i class="pi pi-save me-1"></i> Save
           </button>
-          <button
-            class="btn btn-secondary px-4"
-            type="button"
-            (click)="router.navigate(['/employees'])"
-          >
+          <button class="btn btn-secondary px-4" type="button" (click)="router.navigate(['/employees'])">
             Cancel
           </button>
         </div>

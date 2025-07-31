@@ -1,0 +1,156 @@
+<p-dialog 
+  [(visible)]="visible" 
+  [modal]="true" 
+  [style]="{ width: '600px' }"
+  [breakpoints]="{ '960px': '95vw', '640px': '100vw' }" 
+  [dismissableMask]="true" 
+  [resizable]="false"
+  [baseZIndex]="10000"
+  styleClass="enhanced-hr-dialog"
+  (visibleChange)="visibleChange.emit($event)"
+  (onHide)="onDialogClose()">
+   
+  <ng-template pTemplate="header">
+    <div class="dialog-header-content">
+      <div class="dialog-icon">
+        <i class="pi pi-user-plus"></i>
+      </div>
+      <div class="dialog-title-section">
+        <h3 class="dialog-title">{{ title }}</h3>
+        <p class="dialog-subtitle">Add new HR to organization</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="dialog-body">
+    <form [formGroup]="hrForm" novalidate>
+      <div class="form-grid">
+        
+        <!-- Name Field -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">Name</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="input-icon pi pi-user"></i>
+            <input 
+              pInputText 
+              type="text" 
+              class="form-input" 
+              placeholder="Enter HR Name" 
+              formControlName="name" 
+            />
+          </div>
+          <small 
+            *ngIf="hrForm.get('name')?.touched && hrForm.get('name')?.hasError('required')" 
+            class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            Name is required
+          </small>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">Email Address</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="input-icon pi pi-envelope"></i>
+            <input 
+              pInputText 
+              type="email" 
+              class="form-input" 
+              placeholder="hr@company.com" 
+              formControlName="email" 
+            />
+          </div>
+          <small 
+            *ngIf="hrForm.get('email')?.touched && hrForm.get('email')?.hasError('required')" 
+            class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            Email is required
+          </small>
+          <small 
+            *ngIf="hrForm.get('email')?.touched && hrForm.get('email')?.hasError('email')" 
+            class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            Please enter a valid email address
+          </small>
+        </div>
+
+        <!-- Phone Field -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">Phone Number</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="input-icon pi pi-phone"></i>
+            <input 
+              pInputText 
+              type="tel" 
+              class="form-input" 
+              placeholder="Enter Phone Number" 
+              formControlName="phoneNo" 
+            />
+          </div>
+          <small 
+            *ngIf="hrForm.get('phoneNo')?.touched && hrForm.get('phoneNo')?.hasError('required')" 
+            class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            Phone number is required
+          </small>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-text">Password</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="password-wrapper">
+            <p-password 
+              formControlName="password" 
+              inputId="password" 
+              [feedback]="true" 
+              [toggleMask]="true"
+              placeholder="Create secure password" 
+              [inputStyle]="{ width: '100%', height: '48px', padding: '0 3rem 0 3rem' }"
+              styleClass="enhanced-password">
+            </p-password>
+            <i class="password-icon pi pi-lock"></i>
+          </div>
+          <small 
+            *ngIf="hrForm.get('password')?.touched && hrForm.get('password')?.hasError('required')" 
+            class="error-message">
+            <i class="pi pi-exclamation-circle"></i>
+            Password is required
+          </small>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  
+    <div class="dialog-footer">
+      <button 
+        type="button" 
+        class="btn-secondary" 
+        (click)="onDialogClose()">
+        <i class="pi pi-times"></i>
+        <span>Cancel</span>
+      </button>
+      <button 
+        type="button" 
+        class="btn-primary" 
+        [disabled]="hrForm.invalid" 
+        (click)="save()">
+        <i class="pi pi-check"></i>
+        <span>Save HR</span>
+      </button>
+    </div>
+  
+</p-dialog>

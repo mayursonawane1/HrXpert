@@ -1,112 +1,290 @@
-<div class="container mt-4">
+<div class="dashboard-container">
 
-  <!-- 🔹 Dashboard Heading -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <div class="d-flex align-items-center gap-2">
-      <i class="pi pi-home me-1" style="font-size: 1.5rem;"></i>
-      <h2 class="fw-bold mb-0">Owner Dashboard</h2>
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div class="title-section">
+        <div class="icon-wrapper">
+          <i class="pi pi-home"></i>
+        </div>
+        <h1 class="dashboard-title">Owner Dashboard</h1>
+        <span class="subtitle">Manage your organizations</span>
+      </div>
+      
+      <button class="btn-add-org" (click)="showOrgDialog()">
+        <i class="pi pi-plus"></i>
+        <span>Add Organization</span>
+      </button>
     </div>
-
-    <!-- Add Organization Button -->
-    <button class="btn add-org-btn d-flex align-items-center gap-2" (click)="showOrgDialog()">
-      <i class="pi pi-plus"></i> Add Organization
-    </button>
   </div>
 
-  <!-- Card wrapping the table -->
-  <p-card styleClass="custom-card mb-4">
-   <ng-template pTemplate="header">
-    <div class="d-flex align-items-center gap-2 ps-3 py-4 bg-light border-bottom rounded-top">
-
-      <i class="pi pi-building" style="font-size: 1.2rem;"></i>
-      <span class="fw-semibold re">Organization Directory</span>
-    </div>
-  </ng-template>
-  <ng-container *ngIf="loading; else tableTemplate">
-  <div class="p-3">
-    <div *ngFor="let i of [1,2,3,4,5]" class="mb-3">
-      <p-skeleton width="100%" height="2rem" class="mb-2"></p-skeleton>
-      <div class="d-flex gap-2">
-        <p-skeleton width="15%" height="1rem"></p-skeleton>
-        <p-skeleton width="30%" height="1rem"></p-skeleton>
-        <p-skeleton width="20%" height="1rem"></p-skeleton>
+  <!-- Main Content Card -->
+  <div class="content-card">
+    
+    <!-- Card Header -->
+    <div class="card-header">
+      <div class="header-info">
+        <div class="header-icon">
+          <i class="pi pi-building"></i>
+        </div>
+        <div class="header-text">
+          <h3 class="card-title">Organization Directory</h3>
+          <p class="card-subtitle">{{ organizations?.length || 0 }} organizations registered</p>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="header-actions">
+        <button class="btn-icon" pTooltip="Refresh" tooltipPosition="bottom" (click)="getAllOrganizations()">
+          <i class="pi pi-refresh"></i>
+        </button>
+        <button class="btn-icon" pTooltip="Export" tooltipPosition="bottom">
+          <i class="pi pi-download"></i>
+        </button>
       </div>
     </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="skeleton-table">
+        <div class="skeleton-header">
+          <div *ngFor="let col of [1,2,3,4,5,6,7]" class="skeleton-header-cell">
+            <p-skeleton width="80%" height="1.2rem"></p-skeleton>
+          </div>
+        </div>
+        <div *ngFor="let row of [1,2,3,4,5]" class="skeleton-row">
+          <div *ngFor="let col of [1,2,3,4,5,6,7]" class="skeleton-cell">
+            <p-skeleton [width]="col === 1 ? '90%' : col === 7 ? '60%' : '70%'" height="1rem"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div *ngIf="!loading" class="table-container">
+      <p-table 
+        #dt 
+        [value]="organizations" 
+        [paginator]="true" 
+        [rows]="10" 
+        [rowsPerPageOptions]="[5,10,20,50]"
+        sortMode="multiple" 
+        responsiveLayout="scroll"
+        [globalFilterFields]="['name','email','city']"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} organizations"
+        styleClass="professional-table">
+        
+        <!-- Table Header -->
+        <ng-template pTemplate="caption">
+          <div class="table-toolbar">
+            <div class="search-container">
+              <i class="pi pi-search search-icon"></i>
+              <input 
+                pInputText 
+                type="text" 
+                class="search-input"
+                placeholder="Search organizations..." 
+                (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+            </div>
+            <div class="table-info">
+              <span class="record-count">{{ organizations?.length || 0 }} records</span>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr class="table-header-row">
+            <th pSortableColumn="name" class="col-name">
+              <div class="header-cell">
+                <span>Organization</span>
+                <p-sortIcon field="name"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="email" class="col-email">
+              <div class="header-cell">
+                <span>Contact Email</span>
+                <p-sortIcon field="email"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="phoneNo" class="col-phone">
+              <div class="header-cell">
+                <span>Phone</span>
+                <p-sortIcon field="phoneNo"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="city" class="col-city">
+              <div class="header-cell">
+                <span>Location</span>
+                <p-sortIcon field="city"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="createdAt" class="col-date">
+              <div class="header-cell">
+                <span>Created</span>
+                <p-sortIcon field="createdAt"></p-sortIcon>
+              </div>
+            </th>
+            <th pSortableColumn="updatedAt" class="col-date">
+              <div class="header-cell">
+                <span>Updated</span>
+                <p-sortIcon field="updatedAt"></p-sortIcon>
+              </div>
+            </th>
+            <th class="col-actions">
+              <div class="header-cell">
+                <span>Actions</span>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-org let-rowIndex="rowIndex">
+          <tr class="table-row" [class.even]="rowIndex % 2 === 0">
+            <td class="col-name">
+              <div class="org-info">
+                <div class="org-avatar">
+                  <img *ngIf="org.logo" [src]="org.logo" [alt]="org.name" class="org-logo">
+                  <div *ngIf="!org.logo" class="org-initial">
+                    {{ org.name?.charAt(0)?.toUpperCase() }}
+                  </div>
+                </div>
+                <div class="org-details">
+                  <span class="org-name">{{ org.name }}</span>
+        
+                </div>
+              </div>
+            </td>
+            <td class="col-email">
+              <a [href]="'mailto:' + org.email" class="email-link">{{ org.email }}</a>
+            </td>
+            <td class="col-phone">
+              <a [href]="'tel:' + org.phoneNo" class="phone-link">{{ org.phoneNo }}</a>
+            </td>
+            <td class="col-city">
+              <div class="location-info">
+                <i class="pi pi-map-marker location-icon"></i>
+                <span>{{ org.city }}</span>
+              </div>
+            </td>
+            <td class="col-date">
+              <div class="date-info">
+                <span class="date">{{ org.createdAt | date: 'MMM dd, yyyy' }}</span>
+                <span class="time">{{ org.createdAt | date: 'HH:mm' }}</span>
+              </div>
+            </td>
+            <td class="col-date">
+              <div class="date-info">
+                <span class="date">{{ org.updatedAt | date: 'MMM dd, yyyy' }}</span>
+                <span class="time">{{ org.updatedAt | date: 'HH:mm' }}</span>
+              </div>
+            </td>
+            <td class="col-actions">
+              <div class="action-buttons">
+                <button 
+                  class="action-btn edit-btn" 
+                  pTooltip="Edit Organization" 
+                  tooltipPosition="top"
+                  (click)="editOrganization(org)">
+                  <i class="pi pi-pencil"></i>
+                </button>
+                <button 
+                  class="action-btn delete-btn" 
+                  pTooltip="Delete Organization" 
+                  tooltipPosition="top"
+                  (click)="deleteOrganization(org._id)">
+                  <i class="pi pi-trash"></i>
+                </button>
+                <button 
+                  class="action-btn add-hr-btn" 
+                  pTooltip="Add HR" 
+                  tooltipPosition="top"
+                  (click)="addHr(org)">
+                  <i class="pi pi-user-plus"></i>
+                </button>
+                <button 
+                  class="action-btn view-hr-btn" 
+                  pTooltip="View HRs" 
+                  tooltipPosition="top"
+                  (click)="viewHrs(org)">
+                  <i class="pi pi-eye"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7" class="empty-state">
+              <div class="empty-content">
+                <i class="pi pi-building empty-icon"></i>
+                <h4 class="empty-title">No Organizations Found</h4>
+                <p class="empty-description">Get started by adding your first organization</p>
+                <button class="btn-add-first" (click)="showOrgDialog()">
+                  <i class="pi pi-plus"></i>
+                  Add First Organization
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorleft">
+          <div class="paginator-info">
+            <span>Rows per page:</span>
+          </div>
+        </ng-template>
+
+      </p-table>
+    </div>
   </div>
-</ng-container>
-    <!-- PrimeNG table -->
-     <ng-template #tableTemplate>
-    <p-table #dt [value]="organizations" [paginator]="true" [rows]="5" sortMode="multiple" responsiveLayout="scroll">      
-      <ng-template pTemplate="header" style="border-radius: 10px solid red;">
-        <tr>
-          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-          <th pSortableColumn="phoneNo">Phone <p-sortIcon field="phoneNo"></p-sortIcon></th>
-          <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon></th>
-          <th pSortableColumn="createdAt">Created <p-sortIcon field="createdAt"></p-sortIcon></th>
-          <th pSortableColumn="updatedAt">Updated <p-sortIcon field="updatedAt"></p-sortIcon></th>
-          <th>Actions</th>
-        </tr>
-      </ng-template>
 
-      <ng-template pTemplate="body" let-org>
-        <tr>
-          <td>{{ org.name }}</td>
-          <td>{{ org.email }}</td>
-          <td>{{ org.phoneNo }}</td>
-          <td>{{ org.city }}</td>
-          <td>{{ org.createdAt | date: 'medium' }}</td>
-          <td>{{ org.updatedAt | date: 'medium' }}</td>
-          <td>
-            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
-              (click)="editOrganization(org)"></button>
-            <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-              (click)="deleteOrganization(org._id)"></button>
-            <button pButton type="button" icon="pi pi-user-plus" class="p-button-rounded p-button-text p-button-success"
-              (click)="addHr(org)" pTooltip="Add HR" tooltipPosition="top"></button>
-            <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
-              (click)="viewHrs(org)" pTooltip="View HRs"></button>
-          </td>
-        </tr>
-      </ng-template>
+  <!-- Dialogs -->
+  <app-hr-registration-dialog 
+    [orgId]="selectedOrgForHr?._id"
+    [(visible)]="hrDialogVisible">
+  </app-hr-registration-dialog>
 
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="7" class="text-center">No organizations found.</td>
-        </tr>
-      </ng-template>
-    </p-table>
-    </ng-template>
-  </p-card>
-
-  <!-- Add HR Dialog -->
-  <p-dialog [(visible)]="hrDialogVisible" [modal]="true" [style]="{width: '30vw'}">
-    <app-add-hr-dialog></app-add-hr-dialog>
-  </p-dialog>
-
-  <!-- HR List Dialog -->
-  <p-dialog [(visible)]="hrListDialogVisible" [modal]="true" [resizable]="false" [maximizable]="true"
-    [style]="{ width: '60vw' }" [contentStyle]="{ height: '300px', padding: '0' }" [baseZIndex]="10000"
-    [resizable]="true">
+  <p-dialog 
+    [(visible)]="hrListDialogVisible" 
+    [modal]="true" 
+    [resizable]="false" 
+    [maximizable]="true"
+    [style]="{ width: '70vw' }" 
+    [contentStyle]="{ minHeight: '400px', padding: '0' }" 
+    [baseZIndex]="10000"
+    styleClass="hr-list-dialog">
+    
     <ng-template pTemplate="header">
-      <div class="d-flex align-items-center gap-2">
-        <i class="pi pi-eye"></i>
-        <span class="dialog-title">
-          HR Directory of "{{ selectedOrgForHrView?.name || 'Organization' }}"
-        </span>
+      <div class="dialog-header-content">
+        <div class="dialog-icon">
+          <i class="pi pi-users"></i>
+        </div>
+        <div class="dialog-title-section">
+          <h3 class="dialog-title">HR Directory</h3>
+          <p class="dialog-subtitle">{{ selectedOrgForHrView?.name || 'Organization' }}</p>
+        </div>
       </div>
     </ng-template>
 
     <app-hr-view-dialog [orgId]="selectedOrgForHrView?._id"></app-hr-view-dialog>
 
     <ng-template pTemplate="footer">
-      <button pButton icon="pi pi-times" label="Close" class="p-button-secondary"
-        (click)="hrListDialogVisible = false"></button>
+      <button 
+        class="btn-dialog-close" 
+        (click)="hrListDialogVisible = false">
+        <i class="pi pi-times"></i>
+        Close
+      </button>
     </ng-template>
   </p-dialog>
 
-  <!-- Add/Edit Dialog -->
-  <app-add-organization-dialog [(visible)]="orgDialogVisible" [organization]="selectedOrg"
-    (visibleChange)="onDialogHide()" (saveComplete)="onDialogSave()">
+  <app-add-organization-dialog 
+    [(visible)]="orgDialogVisible" 
+    [organization]="selectedOrg"
+    (visibleChange)="onDialogHide()" 
+    (saveComplete)="onDialogSave()">
   </app-add-organization-dialog>
+
 </div>

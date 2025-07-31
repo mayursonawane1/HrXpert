@@ -8,16 +8,18 @@ import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SkeletonModule } from 'primeng/skeleton'
 import { HrViewDialogComponent } from './hr-view-dialog/hr-view-dialog.component';
-import { AddHrDialogComponent } from './add-hr/add-hr.component';
 import { AddOrganizationDialogComponent } from './organization/add-organization-dialog/add-organization-dialog.component';
 import { OwnerDashboardComponent } from '../dashboards/owner-dashboard/owner-dashboard.component';
+import { HrRegistrationDialogComponent } from '../dashboards/hr-registration-dialog/hr-registration-dialog.component';
+import { PasswordModule } from 'primeng/password';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
     HrViewDialogComponent,
-    AddHrDialogComponent,
     AddOrganizationDialogComponent,
     OwnerDashboardComponent,
+    HrRegistrationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,9 @@ import { OwnerDashboardComponent } from '../dashboards/owner-dashboard/owner-das
     ButtonModule,
     CardModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PasswordModule,
+    TooltipModule
   ],
   exports: [] // Add components here if other modules need them
 })

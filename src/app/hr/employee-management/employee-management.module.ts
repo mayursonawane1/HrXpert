@@ -11,6 +11,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { Tooltip, TooltipModule } from 'primeng/tooltip';
+import { PasswordModule } from 'primeng/password';
 @NgModule({
   declarations: [
     AddEmployeeComponent
@@ -26,7 +27,8 @@ import { Tooltip, TooltipModule } from 'primeng/tooltip';
     DropdownModule,
     CalendarModule,
     BreadcrumbModule,
-    TooltipModule
+    TooltipModule,
+    PasswordModule
   ]
 })
 export class EmployeeManagementModule { }

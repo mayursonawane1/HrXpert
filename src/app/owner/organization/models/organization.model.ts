@@ -14,4 +14,5 @@ export interface OrganizationList {
   createdAt: Date;
   updatedAt: Date;
   __v: number;
+  logo: string;
 }
