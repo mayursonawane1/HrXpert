@@ -29,7 +29,7 @@
         </div>
         <div class="header-text">
           <h3 class="card-title">Organization Directory</h3>
-          <p class="card-subtitle">{{ organizations?.length || 0 }} organizations registered</p>
+          <p class="card-subtitle">{{ organizations.length }} organizations registered</p>
         </div>
       </div>
       
@@ -88,7 +88,7 @@
                 (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
             </div>
             <div class="table-info">
-              <span class="record-count">{{ organizations?.length || 0 }} records</span>
+              <span class="record-count">{{ organizations.length}} records</span>
             </div>
           </div>
         </ng-template>
